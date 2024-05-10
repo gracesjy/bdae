@@ -83,3 +83,6 @@ SELECT *
            'CAL_HOUSING_EDM:describe'))
 ```
 
+## Results
+Like General SQL Queries' results, BDAE's results are the same.
+![ResultsEDM.png](./images/ResultsEDM.png)
