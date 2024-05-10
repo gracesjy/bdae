@@ -1,0 +1,52 @@
+import numpy as np
+import os
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import pandas as pd
+import tempfile
+import base64
+from pandas.plotting import scatter_matrix
+
+def make_output(df, key, data):
+   df[key] = data
+   return df
+
+def image_to_html():
+   tmp_file_name = tempfile.NamedTemporaryFile().name + '.png'
+   plt.savefig(tmp_file_name)
+   image = open(tmp_file_name, 'rb')
+   image_read = image.read()
+   image_64_encode = base64.b64encode(image_read)
+   uri = '<img src="data:img/png;base64,' + image_64_encode.decode() + '">'
+   html_str = "<html><body>" + uri + "</body></html>"
+   if os.path.exists(tmp_file_name):
+      os.remove(tmp_file_name)
+   return html_str
+
+def describe(housing):
+   # 0) Prepare Output
+   tupleStart = {'subject': [ 'General ML' ] }
+   pdf = pd.DataFrame(tupleStart)
+
+   # 1) Historam
+   housing.hist(bins=50, figsize=(20,15))
+   a = image_to_html()
+   pdf = make_output(pdf, 'Histogram', a)
+
+   # 2) Scatter Plot
+   housing.plot(kind="scatter", x="LONGITUDE", y="LATITUDE", alpha=0.4,
+             s=housing["POPULATION"]/100, label="POPULATION", figsize=(10,7),
+             c="MEDIAN_HOUSE_VALUE", cmap=plt.get_cmap("jet"), colorbar=True,
+             sharex=False)
+   plt.legend()
+   a = image_to_html()
+   pdf = make_output(pdf, 'ScatterPlot', a)
+
+   # 3) Scatter Matrix
+   attributes = ["MEDIAN_HOUSE_VALUE", "MEDIAN_INCOME", "TOTAL_ROOMS",
+              "HOUSING_MEDIAN_AGE"]
+   scatter_matrix(housing[attributes], figsize=(12, 8))
+   a = image_to_html()
+   pdf = make_output(pdf, 'ScatterMatrix', a)
+   
+   return pdf
