@@ -12,7 +12,7 @@
 You must make entry function of module, for example describe().
 others are helper functions.
 
-```
+```python
 import numpy as np
 import os
 import matplotlib as mpl
