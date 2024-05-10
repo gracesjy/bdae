@@ -1,2 +1,2 @@
 # BDAE (Big Data Analysis Enabler)
-![Basic Structure](~@source/images/Oracle_In_Database.png)
+![Oracle_In_Database.png](./images/Oracle_In_Database.png)
