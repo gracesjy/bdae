@@ -1,0 +1,5 @@
+import pandas as pd
+def import_csv(df):
+    # All Columns (Attribute) - Upper String !!
+    df = pd.read_csv(df['FILENAME'][0])
+    return (df)
