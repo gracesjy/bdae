@@ -86,3 +86,10 @@ SELECT *
 ## Results
 Like General SQL Queries' results, BDAE's results are the same.
 ![ResultsEDM.png](./images/ResultsEDM.png)
+
+
+
+## Installation
+```bash
+dnf install xxx.rpm
+```
