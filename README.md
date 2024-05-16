@@ -109,7 +109,7 @@ Oracle Database version : 10, 11g, 12c, 19c, 23c ... tested
      Recommended Comments :
       Since it uses the most basic API provided by Oracle Database, it is not significantly related to the version.
 
-Best Practise ( tested example ) :
+For Python Module Best Practise ( tested example ) :
 
      Step-1) Oracle Linux 8 installation
      Step-2) dnf update
@@ -150,8 +150,44 @@ Best Practise ( tested example ) :
       Step-5) Big Data Analysis Enabler Setup
              There is one dynamic library for each python and R module.
              
-        
-            
+BDAE Installation
+1) Properly locate BDAE Python module (bdae/lib/libODCI_Python_AnyDataSet.so)
+2) login Oracle account
+   CREATE LIBRARY PYTHON_ANYDATASET IS '/home/oracle/bdae/libODCI_Python_AnyDataSet.so';
+
+3) register Oracle Type
+   run bdae/pkg/*.sql (APEVAL.sql, APROWEVAL.sql, APTABLEEVAL.sql, APGRPEVAL.sql)
+   
+5) register Oracle package for your own schema (just example)
+   run bdae/pkg/*.sql (FDC_TRACEPKG.sql)
+   
+7) register Oracle Table functions for your own purpose (just example)
+```sql
+create or replace NONEDITIONABLE FUNCTION apEval(inp_cur IN SYS_REFCURSOR, out_qry VARCHAR2,
+                       exp_nam VARCHAR2)
+RETURN ANYDATASET
+PIPELINED USING APEVALIMPL;
+
+create or replace NONEDITIONABLE FUNCTION        apRowEval(inp_cur SYS_REFCURSOR,par_cur SYS_REFCURSOR,
+                          out_qry VARCHAR2, row_num NUMBER,  exp_nam VARCHAR2)
+RETURN SYS.AnyDataSet PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY ANY)
+USING APROWEVALIMPL;
+
+create or replace NONEDITIONABLE FUNCTION        apTableEval(inp_cur SYS_REFCURSOR,
+                            par_cur SYS_REFCURSOR,
+                            out_qry VARCHAR2, exp_nam VARCHAR2)
+RETURN ANYDATASET
+PIPELINED USING APTBLEVALIMPL;
+
+create or replace NONEDITIONABLE FUNCTION        apGroupEvalParallel(
+                          inp_cur IN fdc_tracePkg.cur, par_cur SYS_REFCURSOR,
+                          out_qry VARCHAR2,  grp_col VARCHAR2, exp_nam VARCHAR2)
+RETURN ANYDATASET PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY HASH(EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID))
+CLUSTER inp_cur BY (EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID)
+USING RQUSER.APGRPEVALIMPL;
+
+```
+   
      
 
 
