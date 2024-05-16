@@ -165,7 +165,7 @@ BDAE Installation
    
    5) register Oracle Table functions for your own purpose (just example)
       
-    
+      ```sql
       CREATE OR REPLACE FUNCTION apEval(inp_cur IN SYS_REFCURSOR, out_qry VARCHAR2,
                        exp_nam VARCHAR2)
       RETURN SYS.AnyDataSet
@@ -188,7 +188,7 @@ BDAE Installation
       RETURN SYS.AnyDataSet PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY HASH(EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID))
       CLUSTER inp_cur BY (EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID)
       USING RQUSER.APGRPEVALIMPL;
-    
+      ```
     
 ## Very Important Final Setup for BDAE and Oracle Database
 BDAE is based on the Oracle Data Cartridge Interface and is implemented as a C library. Additionally, this library is called as an external procedure. Therefore, the following configuration is very important.
