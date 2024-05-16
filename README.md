@@ -191,12 +191,14 @@ BDAE Installation
       ```
     
 ## Very Important Final Setup for BDAE and Oracle Database
-    BDAE is based on the Oracle Data Cartridge Interface and is implemented as a C library. Additionally, this library is called as an external procedure. Therefore, the following configuration is very important.
+
+    BDAE is based on the Oracle Data Cartridge Interface and is implemented as a C library. 
+    Additionally, this library is called as an external procedure. Therefore, the following configuration is very important.
 
     edit $ORACLE_HOME/hs/admin/extproc.ora as your environments.
 
 ```bash
-# 1) Oracle Aspect - Security
+
 SET EXTPROC_DLLS=ANY
 SET BDAE_LOB_SIZE=2000000
 ## As your anaconda environment, you can choose your faverate python version and related packages !!
