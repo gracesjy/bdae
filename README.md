@@ -89,7 +89,67 @@ Like General SQL Queries' results, BDAE's results are the same.
 
 
 
-## Installation
-```bash
-dnf install xxx.rpm
-```
+## Installation (dependencies)
+
+OS : Oracle Enterprise Linux 8 ... tested
+     CentOS 7,8 ... tested
+
+     Recommended Comments :
+      There is no OS that is a major problem, but the most important thing is the stability of the Oracle Database
+      and the ease of installation of python and R packages that depend on the customer's algorithm.
+
+      When using a GPU, the CUDA-related libraries and SDK provided by NVIDIA must be properly installed.
+
+Oracle Database version : 10, 11g, 12c, 19c, 23c ... tested
+
+     Recommended Comments :
+      Since it uses the most basic API provided by Oracle Database, it is not significantly related to the version.
+
+Best Practise ( tested example ) :
+
+     Step-1) Oracle Linux 8 installation
+     Step-2) dnf update
+     Step-3) GPU options
+             Download nvidia graphic driver (NVIDIA-Linux-x86_64-525.85.05.run)
+             dnf install kernel-uek-devel make -y
+             dnf install gcc-toolset-11
+
+             reboot ..
+             scl enable gcc-toolset-11 bash
+             sh ./NVIDIA-Linux-x86_64-525.85.05.run
+             reboot ..
+             nvidia-smi test (see if your GPU detected)
+             dnf config-manager --add-repo 
+             https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda- rhel8.repo
+             dnf  clean all
+             dnf search cuda
+             dnf install cuda-12-4 (just example)
+             echo 'export PATH=/usr/local/cuda-12.4bin${PATH:+:${PATH}}' >> $HOME/.bashrc
+             reboot ..
+             download cudnn-archive according to cuda version.
+             cp cudnn-linux-x86_64-8.8.1.3_cuda12-archive/include/cudnn*.h /usr/local/cuda/include
+             cp cudnn-linux-x86_64-8.8.1.3_cuda12-archive/lib/libcudnn* /usr/local/cuda/lib64
+
+     Step-4) Download anaconda and setup python, python packages you want
+
+             Recommended Comments :
+               After installing it on the development system, just copy it to the production system.
+     
+             conda create -n tf39 python=3.9.* (you want)
+             conda activate tf39
+             pip install nvidia-cudnn-cu12 (you want)
+             pip install tensorflow-gpu==2.5.0 (you want)
+             pip install jupyter
+             pip install chardet
+             ...
+
+      Step-5) Big Data Analysis Enabler Setup
+             There is one dynamic library for each python and R module.
+             
+        
+            
+     
+
+
+               
+
