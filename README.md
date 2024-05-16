@@ -193,7 +193,8 @@ BDAE Installation
 ## Very Important Final Setup for BDAE and Oracle Database
 
     BDAE is based on the Oracle Data Cartridge Interface and is implemented as a C library. 
-    Additionally, this library is called as an external procedure. Therefore, the following configuration is very important.
+    Additionally, this library is called as an external procedure. 
+    Therefore, the following configuration is very important.
 
     edit $ORACLE_HOME/hs/admin/extproc.ora as your environments.
 
@@ -202,7 +203,11 @@ BDAE Installation
 SET EXTPROC_DLLS=ANY
 SET BDAE_LOB_SIZE=2000000
 ## As your anaconda environment, you can choose your faverate python version and related packages !!
-SET PYTHONPATH=/home/oracle/anaconda3/envs/tf39/lib/python39.zip:/home/oracle/anaconda3/envs/tf39/lib/python3.9:/home/oracle/anaconda3/envs/tf39/lib/python3.9/lib-dynload:/home/oracle/.local/lib/python3.9/site-packages:/home/oracle/anaconda3/envs/tf39/lib/python3.9/site-packages:/home/oracle/anaconda3/envs/tf39/lib/tcl8.6
+SET PYTHONPATH=/home/oracle/anaconda3/envs/tf39/lib/python39.zip
+               :/home/oracle/anaconda3/envs/tf39/lib/python3.9
+               :/home/oracle/anaconda3/envs/tf39/lib/python3.9/lib-dynload
+               :/home/oracle/anaconda3/envs/tf39/lib/python3.9/site-packages
+               :/home/oracle/anaconda3/envs/tf39/lib/tcl8.6
 
 SET LD_PRELOAD=/home/oracle/anaconda3/envs/tf39/lib/libpython3.9.so.1.0
 SET MAX_MEMORY=2000000
