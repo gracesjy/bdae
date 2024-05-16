@@ -151,42 +151,64 @@ For Python Module Best Practise ( tested example ) :
              There is one dynamic library for each python and R module.
              
 BDAE Installation
-1) Properly locate BDAE Python module (bdae/lib/libODCI_Python_AnyDataSet.so)
-2) login Oracle account
-   CREATE LIBRARY PYTHON_ANYDATASET IS '/home/oracle/bdae/libODCI_Python_AnyDataSet.so';
+   1) Properly locate BDAE Python module (bdae/lib/libODCI_Python_AnyDataSet.so)
+   2) login Oracle account
+      ```sql
+      CREATE LIBRARY PYTHON_ANYDATASET IS '/home/oracle/bdae/libODCI_Python_AnyDataSet.so';
+      ```
 
-3) register Oracle Type
-   run bdae/pkg/*.sql (APEVAL.sql, APROWEVAL.sql, APTABLEEVAL.sql, APGRPEVAL.sql)
+   3) register Oracle Type
+      run bdae/pkg/*.sql (APEVAL.sql, APROWEVAL.sql, APTABLEEVAL.sql, APGRPEVAL.sql)
    
-5) register Oracle package for your own schema (just example)
-   run bdae/pkg/*.sql (FDC_TRACEPKG.sql)
+   4) register Oracle package for your own schema (just example)
+      run bdae/pkg/*.sql (FDC_TRACEPKG.sql)
    
-7) register Oracle Table functions for your own purpose (just example)
-```sql
-create or replace NONEDITIONABLE FUNCTION apEval(inp_cur IN SYS_REFCURSOR, out_qry VARCHAR2,
+   5) register Oracle Table functions for your own purpose (just example)
+    ```sql
+      CREATE OR REPLACE FUNCTION apEval(inp_cur IN SYS_REFCURSOR, out_qry VARCHAR2,
                        exp_nam VARCHAR2)
-RETURN ANYDATASET
-PIPELINED USING APEVALIMPL;
+      RETURN SYS.AnyDataSet
+      PIPELINED USING RQUSER.APEVALIMPL;
 
-create or replace NONEDITIONABLE FUNCTION        apRowEval(inp_cur SYS_REFCURSOR,par_cur SYS_REFCURSOR,
+      CREATE OR REPLACE FUNCTION apRowEval(inp_cur SYS_REFCURSOR,par_cur SYS_REFCURSOR,
                           out_qry VARCHAR2, row_num NUMBER,  exp_nam VARCHAR2)
-RETURN SYS.AnyDataSet PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY ANY)
-USING APROWEVALIMPL;
+      RETURN SYS.AnyDataSet PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY ANY)
+      USING RQUSER.APROWEVALIMPL;
 
-create or replace NONEDITIONABLE FUNCTION        apTableEval(inp_cur SYS_REFCURSOR,
+      CREATE OR REPLACE FUNCTION apTableEval(inp_cur SYS_REFCURSOR,
                             par_cur SYS_REFCURSOR,
                             out_qry VARCHAR2, exp_nam VARCHAR2)
-RETURN ANYDATASET
-PIPELINED USING APTBLEVALIMPL;
+      RETURN SYS.AnyDataSet
+      PIPELINED USING RQUSER.APTBLEVALIMPL;
 
-create or replace NONEDITIONABLE FUNCTION        apGroupEvalParallel(
+      CREATE OR REPLACE FUNCTION apGroupEvalParallel(
                           inp_cur IN fdc_tracePkg.cur, par_cur SYS_REFCURSOR,
                           out_qry VARCHAR2,  grp_col VARCHAR2, exp_nam VARCHAR2)
-RETURN ANYDATASET PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY HASH(EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID))
-CLUSTER inp_cur BY (EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID)
-USING RQUSER.APGRPEVALIMPL;
+      RETURN SYS.AnyDataSet PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY HASH(EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID))
+      CLUSTER inp_cur BY (EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID)
+      USING RQUSER.APGRPEVALIMPL;
 
-```
+    ```
+## Very Important Final Setup for BDAE and Oracle Database
+BDAE is based on the Oracle Data Cartridge Interface and is implemented as a C library. Additionally, this library is called as an external procedure. Therefore, the following configuration is very important.
+
+   edit $ORACLE_HOME/hs/admin/extproc.ora as your environments.
+
+#
+# 2020.11.26
+# by raymond
+#
+#
+# 1) Oracle Aspect - Security
+SET EXTPROC_DLLS=ANY
+SET BDAE_LOB_SIZE=2000000
+## As your anaconda environment, you can choose your faverate python version and related packages !!
+SET PYTHONPATH=/home/oracle/anaconda3/envs/tf39/lib/python39.zip:/home/oracle/anaconda3/envs/tf39/lib/python3.9:/home/oracle/anaconda3/envs/tf39/lib/python3.9/lib-dynload:/home/oracle/.local/lib/python3.9/site-packages:/home/oracle/anaconda3/envs/tf39/lib/python3.9/site-packages:/home/oracle/anaconda3/envs/tf39/lib/tcl8.6
+
+SET LD_PRELOAD=/home/oracle/anaconda3/envs/tf39/lib/libpython3.9.so.1.0
+SET MAX_MEMORY=2000000
+
+
    
      
 
