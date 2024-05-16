@@ -5,16 +5,16 @@ Because it implements the Oracle Data Cartridge Interface, it is not limited to 
 
 ![Oracle_In_Database.png](./images/Oracle_In_Database.png)
 
-## To run ..
-1. Register your model in Oracle Database's table or PYTHONPATH directory.
+## How To run (3 Steps to Run !)
+1. Register your python model in Oracle Database's table or PYTHONPATH directory.
 2. Register the SQL to mix source data and your model.
-3. Just Run the SQL and get the results.
+3. Run the SQL and get the results.
 
 
-## Your Python module
+## Step-1) Make Your Python module (Machine Learning or Deep Learning ..)
 
 You must make entry function of module, for example describe().
-others are helper functions.
+others are helper functions. 
 
 ```python
 import numpy as np
