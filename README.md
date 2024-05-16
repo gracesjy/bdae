@@ -72,23 +72,24 @@ def describe(housing):
 
 ```
 
-## Your SQL to run
+## Step-2) Make Your SQL to run
 The input (Oracle Database's Table or View or Queries) is delivered pandas DataFrame format to your python entry point function,
 and You must make the results into pandas DataFrame format ! because of Oracle In-Database ...
 
 ```sql
 SELECT * 
       FROM table(apTableEval(
-         	cursor(select * from CAL_HOUSING),
-         	NULL,
-            'SELECT CAST(''A'' AS VARCHAR2(40)) SUBJECT, 
+         	cursor(select * from CAL_HOUSING),  -- Input Data (Driving Table)
+         	NULL,  -- Secondary Input Data
+            'SELECT CAST(''A'' AS VARCHAR2(40)) SUBJECT,  -- Output Format
                   TO_CLOB(NULL) H1, TO_CLOB(NULL) H2, TO_CLOB(NULL) H3 
              FROM DUAL',
-           'CAL_HOUSING_EDM:describe'))
+           'CAL_HOUSING_EDM:describe'))  -- Python Module for calling
 ```
 
-## Results
+## Step-3) Run above SQL and get Results
 Like General SQL Queries' results, BDAE's results are the same.
+(Any Applications you can develope using SQLs)
 ![ResultsEDM.png](./images/ResultsEDM.png)
 
 
