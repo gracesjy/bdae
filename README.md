@@ -11,7 +11,7 @@ Because it implements the Oracle Data Cartridge Interface, it is not limited to 
 3. Run the SQL and get the results.
 
 
-## Step-1) Make Your Python module (Machine Learning or Deep Learning ..)
+## Step-1) Make Your Python module (ML/DL/ ...)
 
 You must make entry function of module, for example describe().
 others are helper functions. 
@@ -73,8 +73,11 @@ def describe(housing):
 ```
 
 ## Step-2) Make Your SQL to run
-The input (Oracle Database's Table or View or Queries) is delivered pandas DataFrame format to your python entry point function,
-and You must make the results into pandas DataFrame format ! because of Oracle In-Database ...
+
+The input (Oracle Database's Table or View or Queries) is delivered 
+pandas DataFrame format to your python entry point function,
+and You must make the results into pandas DataFrame format !,
+because of Oracle Database Query Results(RDBMS).
 
 ```sql
 SELECT * 
