@@ -2,6 +2,7 @@
 
 Big Data Analysis Enabler(BDAE) enables parallel processing of Python and R without data movement based on Oracle In-Database.
 Because it implements the Oracle Data Cartridge Interface, it is not limited to a specific schema and supports Dynamic SQL.
+(contact : gracesjy@naver.com)
 
 ![Oracle_In_Database.png](./images/Oracle_In_Database.png)
 
