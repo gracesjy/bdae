@@ -92,4 +92,4 @@ def predict_with_model(df_data, df_model):
 
 Result
 
-![Screenshot from 2024-05-23 12-49-46.png](../images/Screenshot from 2024-05-23 12-49-46.png)
+![ModelUnSerialize.png](../images/ModelUnSerialize.png)
