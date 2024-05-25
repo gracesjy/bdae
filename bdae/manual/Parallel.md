@@ -17,3 +17,19 @@ FROM table(APGROUPEVALPARALLEL(
             
       'groupby_test:sumup')) -- Python Module and its Function to run
 ```
+
+You can define below functions as you want.
+```
+create or replace  FUNCTION apGroupEvalParallel(
+                          inp_cur IN fdc_tracePkg.cur, par_cur SYS_REFCURSOR,
+                          out_qry VARCHAR2,  grp_col VARCHAR2, exp_nam VARCHAR2)
+RETURN ANYDATASET PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY HASH(EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID))
+CLUSTER inp_cur BY (EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID)
+USING RQUSER.APGRPEVALIMPL;
+```
+You can define the package as you want
+```
+create or replace  PACKAGE  "FDC_TRACEPKG" AS
+TYPE cur IS REF CURSOR RETURN fdc_trace%ROWTYPE;
+END fdc_tracePkg;
+```
