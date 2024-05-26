@@ -92,4 +92,4 @@ def predict_with_model(df_data, df_model):
 
 Result
 
-![ModelUnSerialize.png](../../images/ModelUnSerialize.png)
+![YOLOv8_Paddle.png](../../images/YOLOv8_Paddle.png)
