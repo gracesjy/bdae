@@ -1,4 +1,4 @@
-## Saving Model
+## Saving (Serializing) Model into DB Table.
 
 Just Example ...
 
