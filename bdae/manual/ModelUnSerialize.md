@@ -27,6 +27,18 @@ FROM table(apTableEval(
 Python Module
 
 ```
+def image_to_html():
+   tmp_file_name = tempfile.NamedTemporaryFile().name + '.png'
+   plt.savefig(tmp_file_name)
+   image = open(tmp_file_name, 'rb')
+   image_read = image.read()
+   image_64_encode = base64.b64encode(image_read)
+   uri = '<img src="data:img/png;base64,' + image_64_encode.decode() + '">'
+   html_str = "<html><body>" + uri + "</body></html>"
+   if os.path.exists(tmp_file_name):
+      os.remove(tmp_file_name)
+   return html_str
+
 def predict_with_model(df_data, df_model):
    
    model_binary = df_model['RAWDATA'].values
@@ -69,22 +81,11 @@ def predict_with_model(df_data, df_model):
          if isinstance(rect, tuple):
             license_x = license_x + rect[0]
             
-   image = open('/tmp/result.png', 'rb')
-   image_read = image.read()
-   image_64_encode = base64.b64encode(image_read)
-   print(type(image_64_encode))
-
-   uri = '<img src="data:img/png;base64,' + image_64_encode.decode() + '">'
-   total = "<html><body>" + uri + "</body></html>"
 
    color1 = (155, 200, 230)
-   list_data1 = [1]
-   list_data2 = [2]
-   list_data3 = [total]
-   list_data4 = [license_x]
-   #list_data4 = [license_x]
-   datax ={'Estimate No. Clusters': list_data1, 'Homogeneity': list_data2, 'IMG' : list_data3, 'OCR': list_data4}
-   pdf = pd.DataFrame(datax)
+   img2html = image_to_html()
+   dataDict ={'Model': [df_model['KEY'][0]], 'IMG' : [img2html], 'OCR': [license_ocr]}
+   pdf = pd.DataFrame(dataDict)
    return (pdf)
 ```
 
