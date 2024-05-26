@@ -14,14 +14,14 @@ YN            VARCHAR2(40)
 
 SQL
 ```
-SELECT * 
-      FROM table(apTableEval(
-         	cursor(SELECT '/home/oracle/yolo/car_2.jpg' AS DATA
-                   FROM dual), -- Data to infer(predict) X target data
-         	cursor(SELECT * FROM python_ser WHERE key = 'yolo_paddle'),  -- Model Serialized Table Record
-            'SELECT CAST(''A'' AS VARCHAR2(40)) MODEL_TYPE, TO_CLOB(NULL) IMAGE, CAST(''A'' AS VARCHAR2(40)) OCR FROM dual',
-            'YOLOv8:predict_with_model') -- Python Module and Function
-          )
+SELECT *
+FROM table(apTableEval(
+    cursor(SELECT '/home/oracle/yolo/car_2.jpg' AS DATA
+           FROM dual), -- Data to infer(predict) X target data
+    cursor(SELECT * FROM python_ser WHERE key = 'yolo_paddle'),  -- Model Serialized Table Record
+    'SELECT CAST(''A'' AS VARCHAR2(40)) MODEL_TYPE, TO_CLOB(NULL) IMAGE, CAST(''A'' AS VARCHAR2(40)) OCR FROM dual',
+    'YOLOv8:predict_with_model') -- Python Module and Function
+)
 ```
 
 Python Module
