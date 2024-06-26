@@ -82,3 +82,95 @@ def describe(df, arg1):
     return (pdf)
 
 ```
+Wrapping above BDAE's SQL
+
+```
+SELECT *
+FROM table(apEval(
+   cursor(SELECT 'EQP-200' EQP_ID FROM dual),
+   'SELECT CAST(''A'' AS VARCHAR2(40)) EQP_ID, 
+           CAST(''A'' AS VARCHAR2(40)) UNIT_ID,
+           CAST(''A'' AS VARCHAR2(40)) LOT_ID,
+           CAST(''A'' AS VARCHAR2(40)) WAFER_ID,
+           CAST(''A'' AS VARCHAR2(40)) RECIPE,
+           CAST(''A'' AS VARCHAR2(40)) PARAM_ID,
+           CAST(''A'' AS VARCHAR2(40)) KEY,
+           1.0 VALUE FROM DUAL',
+   'ParallelDescByWrapper:describe'))
+```
+ParallelDescByWrapper:describe
+
+```
+import FDCDescribeParallel
+import pandas as pd
+
+def describe(df_arg):
+    return FDCDescribeParallel.get_fdc_descriptive_statistics_eqp(df_arg)
+```
+
+Package FDCDescribeParallel is 
+```
+import pandas as pd
+import numpy as np
+import sqlalchemy
+
+def get_fdc_descriptive_statistics():
+    DATABASE = "oracle19c"
+    SCHEMA = "rquser"
+    PASSWORD = "nebula"
+
+    connstr = "oracle://{}:{}@{}".format(SCHEMA, PASSWORD, DATABASE)
+    engine = sqlalchemy.create_engine(connstr)
+    conn = engine.connect()
+
+    SQL = "SELECT /*+ parallel(5) */* \
+          FROM table(APGROUPEVALPARALLEL(\
+                CURSOR(SELECT * FROM FDC_TRACE),\
+                CURSOR(SELECT EQP_ID, UNIT_ID FROM FDC_TRACE WHERE ROWNUM < 1000001),\
+                'SELECT CAST(''A'' AS VARCHAR2(40)) EQP_ID, \
+                        CAST(''A'' AS VARCHAR2(40)) UNIT_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) LOT_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) WAFER_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) RECIPE,\
+                        CAST(''A'' AS VARCHAR2(40)) PARAM_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) KEY,\
+                        1.0 VALUE FROM DUAL',\
+                        'EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID',\
+               'ParallelDesc:describe'))"
+
+    df = pd.read_sql_query(SQL, conn)
+    conn.close()
+    return df
+
+def get_fdc_descriptive_statistics_eqp(df_arg):
+    DATABASE = "oracle19c"
+    SCHEMA = "rquser"
+    PASSWORD = "nebula"
+
+    connstr = "oracle://{}:{}@{}".format(SCHEMA, PASSWORD, DATABASE)
+    engine = sqlalchemy.create_engine(connstr)
+    conn = engine.connect()
+
+    SQL = "SELECT /*+ parallel(5) */* \
+          FROM table(APGROUPEVALPARALLEL(\
+                CURSOR(SELECT * FROM FDC_TRACE \
+                       WHERE EQP_ID='{}' \
+                ),\
+                CURSOR(SELECT EQP_ID, UNIT_ID FROM FDC_TRACE WHERE ROWNUM < 1000001),\
+                'SELECT CAST(''A'' AS VARCHAR2(40)) EQP_ID, \
+                        CAST(''A'' AS VARCHAR2(40)) UNIT_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) LOT_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) WAFER_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) RECIPE,\
+                        CAST(''A'' AS VARCHAR2(40)) PARAM_ID,\
+                        CAST(''A'' AS VARCHAR2(40)) KEY,\
+                        1.0 VALUE FROM DUAL',\
+                        'EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID',\
+               'ParallelDesc:describe'))".format(df_arg['EQP_ID'][0])
+
+    df = pd.read_sql_query(SQL, conn)
+    conn.close()
+    return df
+```
+
+
