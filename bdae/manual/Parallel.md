@@ -142,6 +142,7 @@ def get_fdc_descriptive_statistics():
     conn.close()
     return df
 
+## With argument, df_arg contains EQP_ID, ... 
 def get_fdc_descriptive_statistics_eqp(df_arg):
     DATABASE = "oracle19c"
     SCHEMA = "rquser"
