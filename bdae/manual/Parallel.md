@@ -26,3 +26,59 @@ create or replace  PACKAGE  "FDC_TRACEPKG" AS
 TYPE cur IS REF CURSOR RETURN fdc_trace%ROWTYPE;
 END fdc_tracePkg;
 ```
+
+
+Another example
+
+```
+SELECT /*+ parallel(5) */*
+      FROM table(APGROUPEVALPARALLEL(
+         	CURSOR(SELECT * FROM FDC_TRACE),
+         	CURSOR(SELECT EQP_ID, UNIT_ID FROM FDC_TRACE WHERE ROWNUM < 1000001),
+            'SELECT CAST(''A'' AS VARCHAR2(40)) EQP_ID, 
+                    CAST(''A'' AS VARCHAR2(40)) UNIT_ID,
+                    CAST(''A'' AS VARCHAR2(40)) LOT_ID,
+                    CAST(''A'' AS VARCHAR2(40)) WAFER_ID,
+                    CAST(''A'' AS VARCHAR2(40)) RECIPE,
+                    CAST(''A'' AS VARCHAR2(40)) PARAM_ID,
+                    CAST(''A'' AS VARCHAR2(40)) KEY,
+                    1.0 VALUE FROM DUAL',
+            'EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID',       
+           'ParallelDesc:describe'))
+```
+
+ParallelDesc:describe
+```
+import cx_Oracle
+import pandas as pd
+import os
+import sys
+import gc
+import logging
+
+def describe(df, arg1):
+    df_value = df['VALUE']
+    desc_df = df_value.describe()
+    desc_columns = desc_df.index.tolist()
+    desc_values = desc_df.tolist()
+    
+    eqpId = [] # EQP_ID
+    unitId = [] # UNIT_ID
+    lotId = [] # LOT_ID
+    waferId = [] # WAFER_ID
+    recipe = [] # RECIPE
+    paramId = [] # PARAM_ID
+    
+    for i in range(len(desc_values)):
+        eqpId = df['EQP_ID'][0]
+        unitId = df['UNIT_ID'][0]
+        lotId = df['LOT_ID'][0]
+        waferId = df['WAFER_ID'][0]
+        recipe = df['RECIPE'][0]
+        paramId = df['PARAM_ID'][0]
+
+    pdf = pd.DataFrame(data={'EQP_ID': eqpId, 'UNIT_ID': unitId, 'LOT_ID': lotId, 'WAFER_ID' : waferId, 'RECIPE': recipe, 
+                            'PARAM_ID': paramId, 'KEY_NAME' : desc_columns, 'VALUES': desc_values})
+    return (pdf)
+
+```
