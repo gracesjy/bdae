@@ -57,3 +57,44 @@ SQL = "SELECT EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID,VALUE \
 df = pd.read_sql_query(SQL, conn)
 
 ```
+
+How to insert ...
+
+```
+import sqlalchemy
+from sqlalchemy import Column
+from sqlalchemy import create_engine
+from sqlalchemy import Float
+from sqlalchemy import Integer
+
+DATABASE = "oracle19c"
+SCHEMA = "rquser"
+PASSWORD = "nebula"
+
+connstr = "oracle://{}:{}@{}".format(SCHEMA, PASSWORD, DATABASE)
+engine = sqlalchemy.create_engine(connstr)
+conn = engine.connect()
+
+from sqlalchemy import Column
+from sqlalchemy import create_engine
+from sqlalchemy import Float
+from sqlalchemy import Integer
+
+sqlalchemy.types.NVARCHAR(length=255)
+dtype = {"PassengerId" : sqlalchemy.types.INTEGER(),
+         "Survived" : sqlalchemy.types.Float(precision=0, asdecimal=True),
+         "Pclass": sqlalchemy.types.INTEGER(),
+         "Name": sqlalchemy.types.NVARCHAR(100),
+         "Sex": sqlalchemy.types.NVARCHAR(10),
+         "Age": sqlalchemy.types.Float(precision=0, asdecimal=True),
+         "SibSp" : sqlalchemy.types.INTEGER(),
+         "Parch" : sqlalchemy.types.INTEGER(),
+         "Ticket" : sqlalchemy.types.NVARCHAR(40),
+         "Fare" : sqlalchemy.types.Float(precision=0, asdecimal=True),
+         "Cabin": sqlalchemy.types.NVARCHAR(40),
+         "Embarked": sqlalchemy.types.NVARCHAR(40),
+         "TYPE": sqlalchemy.types.NVARCHAR(40)
+        }
+
+all_data.to_sql('TITANIC', conn, if_exists='replace', dtype=dtype)
+```
