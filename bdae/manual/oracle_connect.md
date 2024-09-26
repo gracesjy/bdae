@@ -32,3 +32,28 @@ cursor.execute("INSERT INTO python_ser(KEY,RAWDATA,YN) VALUES(:1,:2,:3)",
        ['yolo_paddle',binary_var,'yolov8+paddle_ocr'])
 conn.commit()
 ```
+
+```
+import sqlalchemy
+import pandas as pd
+DATABASE = "oracle19c"
+SCHEMA = "rquser"
+PASSWORD = "nebula"
+
+connstr = "oracle://{}:{}@{}".format(SCHEMA, PASSWORD, DATABASE)
+engine = sqlalchemy.create_engine(connstr)
+conn = engine.connect()
+
+SQL = "SELECT EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID,VALUE \
+        FROM fdc_trace \
+        WHERE 1=1\
+          AND EQP_ID='EQP-200'\
+          AND UNIT_ID='UNIT-02'\
+          AND LOT_ID='LOTB-101'\
+          AND RECIPE='RECIPE-200'\
+          AND PARAM_ID IN ('param_b-36') \
+          ORDER BY EQP_ID, UNIT_ID, LOT_ID, RECIPE, PARAM_ID"
+
+df = pd.read_sql_query(SQL, conn)
+
+```
