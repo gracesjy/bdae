@@ -98,3 +98,30 @@ dtype = {"PassengerId" : sqlalchemy.types.INTEGER(),
 
 all_data.to_sql('TITANIC', conn, if_exists='replace', dtype=dtype)
 ```
+
+바로 테스트 해 보도록 함
+
+```
+import sqlalchemy
+from sqlalchemy import Column
+from sqlalchemy import create_engine
+from sqlalchemy import Float
+from sqlalchemy import Integer
+import pandas as pd
+import numpy as np
+
+DATABASE = "FREE"
+SCHEMA = "GPM"
+PASSWORD = "GPM"
+
+connstr = "oracle://{}:{}@{}".format(SCHEMA, PASSWORD, DATABASE)
+engine = sqlalchemy.create_engine(connstr)
+conn = engine.connect()
+
+from openpyxl import load_workbook
+excel_dir = r'G:\Downloads\Excel_Python_Test.xlsx'
+df = pd.read_excel(excel_dir, sheet_name='Sheet1', header=0)
+
+df.to_sql('TEST', conn, if_exists='replace')
+
+```
