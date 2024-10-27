@@ -241,4 +241,34 @@ def get_part(doc, numbering_part, all_data, done_list):
                             local_row_idx = local_row_idx + 1
                             one_row = []
 
+
+from spire.doc import *
+from spire.doc.common import *
+import re
+# Create an instance of Document
+doc = Document()
+
+# DocuAutomation_PlainText2.docx, DocuAutomation_Only_Table_Plain.docx
+input_path = r'G:\DeepLearning\DocuAutomation_PlainText2.docx'
+# Load a Word document
+doc.LoadFromFile(input_path)
+
+# Loop through the sections
+all_data = []
+p1 = re.compile('^[0-9]+\.*')
+p = re.compile('^[0-9]+\.[0-9]+\.*')
+# 한번 뽑아 보는 것
+mbr = 'E2BC05'
+print ('Doucment Section Count : %d' %  doc.Sections.Count)
+local_row_idx = 0
+paragraphNumbering = ''
+prevParagraphNumbering = ''
+done_list = []
+numbering_part = '3.1'
+get_part(doc, numbering_part, all_data, done_list)
+numbering_part = '3.2'
+get_part(doc, numbering_part, all_data, done_list)
+print('---------------------------------')
+print(all_data)            
+doc.Close()
 ```
