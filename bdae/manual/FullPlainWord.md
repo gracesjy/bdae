@@ -321,3 +321,27 @@ print('---------------------------------')
 print(all_data)            
 doc.Close()
 ```
+dfx = df.loc[df.SEQ==0, ['MBR','Step','ACTION','DESC']]
+aa = []
+for i in range(0,len(dfx)):
+    a = dfx.iloc[i]['DESC'].split('\n')
+    m = dfx.iloc[i]['MBR']
+    s = dfx.iloc[i]['Step']
+    action = dfx.iloc[i]['ACTION']
+    bSet = False
+    for j in range(0, len(a)):
+        if a[j].find('SOP') >= 0:
+            print (str(j) + ' : ' + a[j])
+            aa.append([m, s, action, a[j],  a[j+1]])
+            bSet = True
+        else:
+            if bSet == False:
+                aa.append([m, s, action, '', a[j]])
+            bSet = True
+            
+    print(a)
+print('----------')
+aa
+```
+
+```
