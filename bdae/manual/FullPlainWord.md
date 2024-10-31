@@ -290,7 +290,27 @@ def get_part(doc, numbering_part, all_data, done_list):
                             local_row_idx = local_row_idx + 1
                             one_row = []
 
-
+                    if len(subTableData) > 0:
+                            #one_row.append(mbr)
+                            #one_row.append(numbering)
+                            #one_row.append(str(local_row_idx))
+                            #one_row.append(prevParagraphNumbering)
+                            for b in subTableData:
+                                one_row.append(mbr)
+                                one_row.append(numbering)
+                                one_row.append(str(local_row_idx))
+                                one_row.append(prevParagraphNumbering)
+                                print('############----------------###############################')
+                                print (b)
+                                for bb in b:
+                                #print(b)
+                                    one_row.append(bb)
+                                    #one_row.extend(subTableData)
+                                all_data.append(one_row)
+                                one_row = []
+                                local_row_idx = local_row_idx + 1
+                            one_row = []
+                            subTableData = []
 from spire.doc import *
 from spire.doc.common import *
 import re
