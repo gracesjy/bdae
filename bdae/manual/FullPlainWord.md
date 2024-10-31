@@ -323,21 +323,24 @@ doc.Close()
 ```
 dfx = df.loc[df.SEQ==0, ['MBR','Step','ACTION','DESC']]
 aa = []
+aa = []
 for i in range(0,len(dfx)):
     a = dfx.iloc[i]['DESC'].split('\n')
     m = dfx.iloc[i]['MBR']
-    s = dfx.iloc[i]['Step']
+    s = dfx.iloc[i]['STEP']
     action = dfx.iloc[i]['ACTION']
     bSet = False
     for j in range(0, len(a)):
+        #print (str(j) + ' : ' + a[j])
+        if len(a[j].strip()) == 0:
+            continue
         if a[j].find('SOP') >= 0:
-            print (str(j) + ' : ' + a[j])
             aa.append([m, s, action, a[j],  a[j+1]])
             bSet = True
         else:
             if bSet == False:
                 aa.append([m, s, action, '', a[j]])
-            bSet = True
+            bSet = False
             
     print(a)
 print('----------')
