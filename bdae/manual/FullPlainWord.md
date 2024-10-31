@@ -73,6 +73,51 @@ def abnormal_numbering(data):
     else:
         return True
 
+def subTables(tables):
+    sub_one_row = []
+    for i in range(0, tables.Count):
+        # Get a table
+        
+        table = tables.get_Item(i)
+        # Initialize a string to store the table data
+        tableData = ''
+        # Loop through the rows of the table
+        #print('table row count : %d' %  table.Rows.Count)
+        step_no = ''
+
+        ### 이 위치가 Row 정의 위치임.
+        one_row = []
+        prev_column_values = None
+        local_row_idx = 0
+        for j in range(0, table.Rows.Count):
+            # Loop through the cells of the row
+            col_idx = 0
+
+            #print('cell count : %d' % table.Rows.get_Item(j).Cells.Count)
+            
+            # 여기에서 cell 의 one row 가 완성된다.
+
+            column_values = []
+
+            # 헷깔리지 말자. 여기가 표의 컬럼들을 순차적으로 보여준다.
+            table_columns = table.Rows.get_Item(j).Cells
+            for k in range(0, table_columns.Count):
+
+                # Get a cell (컬럼 하나씩 )
+                cell = table_columns.get_Item(k)
+                # Get the text in the cell
+                cellText = ''
+                # 하나의 컬럼 안에 있는 모든 문구들을 모두 합친다.
+                for para in range(cell.Paragraphs.Count):
+                    paragraphText = cell.Paragraphs.get_Item(para).Text.strip()
+                    cellText += (paragraphText + '\n')    
+
+                print(cellText)
+                column_values.append(cellText)
+            sub_one_row.append(column_values)
+    print(sub_one_row)
+    return sub_one_row
+
 
 ## 모두 Text 로 전환했을 때...
 def get_part(doc, numbering_part, all_data, done_list):
@@ -162,6 +207,10 @@ def get_part(doc, numbering_part, all_data, done_list):
                         cell = table_columns.get_Item(k)
                         # Get the text in the cell
                         cellText = ''
+
+
+                        if cell.Tables.Count > 0:
+                            subTables(cell.Tables)
 
                         # 하나의 컬럼 안에 있는 모든 문구들을 모두 합친다.
                         for para in range(cell.Paragraphs.Count):
