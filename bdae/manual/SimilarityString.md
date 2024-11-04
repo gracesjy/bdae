@@ -22,7 +22,7 @@ lib_selected = []
 
 for a_data in my_data:
     sim_max_idx, sim = similarity_idx(lib, a_data)
-    lib_selected.append(lib[sim_max])
+    lib_selected.append(lib[sim_max_idx])
     similarity.append(sim)
 
 lib_selected
