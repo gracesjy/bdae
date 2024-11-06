@@ -39,6 +39,31 @@ df
 not_kor_str = re.sub(r"[ㄱ-ㅣ가-힣]", "", data1).strip()
 ```
 
+### Machine Learning in Action 의 것을 응용해서 적용해 보자
+```
+def bagofwors(vocaList, inputSet):
+    returnVec = [0]*len(vocaList)
+    for word in inputSet:
+        if word in vocaList:
+            print ('ok')
+            vocaList.index(word)
+            returnVec[vocaList.index(word)] += 1
+
+    sum = 0
+    for a in returnVec:
+        sum += a
+    similarity = sum/len(returnVec)
+    return similarity
+
+vocaList1 = ['Bioreactor', 'Chart', 'Trend', 'Innoculation']
+vocaList2 = ['Bioreactor', 'Chart', 'Trend', 'Innoculation', 'Puhahah', 'James']
+inputSet = ['Bioreactor', 'Trend', 'Chart']
+
+a = bagofwors(vocaList1, inputSet)
+b = bagofwors(vocaList2, inputSet)
+print('a : ' + str(a) + ' vs ' + str(b))
+```
+
 ### 실전
 ```
 def similarity_idx(lib, mydata):
