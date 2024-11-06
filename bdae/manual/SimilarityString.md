@@ -34,6 +34,11 @@ df
 
 ```
 
+### 한글 제거 하자.
+```
+not_kor_str = re.sub(r"[ㄱ-ㅣ가-힣]", "", data1).strip()
+```
+
 ### 실전
 ```
 def similarity_idx(lib, mydata):
