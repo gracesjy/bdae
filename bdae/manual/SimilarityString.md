@@ -41,7 +41,7 @@ not_kor_str = re.sub(r"[ㄱ-ㅣ가-힣]", "", data1).strip()
 
 ### Machine Learning in Action 의 것을 응용해서 적용해 보자
 ```
-def bagofwors(vocaList, inputSet):
+def bagofwords(vocaList, inputSet):
     returnVec = [0]*len(vocaList)
     for word in inputSet:
         if word in vocaList:
@@ -59,8 +59,8 @@ vocaList1 = ['Bioreactor', 'Chart', 'Trend', 'Innoculation']
 vocaList2 = ['Bioreactor', 'Chart', 'Trend', 'Innoculation', 'Puhahah', 'James']
 inputSet = ['Bioreactor', 'Trend', 'Chart']
 
-a = bagofwors(vocaList1, inputSet)
-b = bagofwors(vocaList2, inputSet)
+a = bagofwords(vocaList1, inputSet)
+b = bagofwords(vocaList2, inputSet)
 print('a : ' + str(a) + ' vs ' + str(b))
 ```
 
