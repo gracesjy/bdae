@@ -64,6 +64,42 @@ b = bagofwords(vocaList2, inputSet)
 print('a : ' + str(a) + ' vs ' + str(b))
 ```
 
+### 아래는 더 응용하여 스펠링이 틀릴 경우를 고려한다.
+```
+def bagofwords(vocaList, inputSet):
+    returnVec = [0]*len(vocaList)
+    for word in inputSet:
+        if word in vocaList:
+            print ('ok')
+            #vocaList.index(word)
+            returnVec[vocaList.index(word)] += 1
+        else:
+            sim_arr = []
+            for x in vocaList:
+                sim = similar(x, word)
+                sim_arr.append(sim)
+
+            idx = sim_arr.index(max(sim_arr))
+            returnVec[idx] = sim_arr[idx]
+
+    sum = 0
+    for a in returnVec:
+        sum += a
+    similarity = sum/len(returnVec)
+    return similarity
+
+vocaList1 = ['Bioreactor', 'Chart', 'Trend', 'Innoculation']
+vocaList2 = ['Bioreactor', 'Chart', 'Trend', 'Innoculation', 'Puhahah', 'James']
+# 아래는 Innoculation 의 스펠링이 틀렸다고 가정 하자.
+inputSet = ['Bioreactor', 'Trend', 'Innoculatxion', 'Chart']
+
+a = bagofwords(vocaList1, inputSet)
+b = bagofwords(vocaList2, inputSet)
+print('a : ' + str(a) + ' vs ' + str(b))
+```
+
+
+
 ### 실전
 ```
 def similarity_idx(lib, mydata):
