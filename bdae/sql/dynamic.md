@@ -1,6 +1,10 @@
 #### dynamic
 
 ```
+https://www.oracle-developer.net/display.php?id=422
+```
+
+```
 create or replace TYPE ramos_odci_clob AS OBJECT
 
 (
