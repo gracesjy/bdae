@@ -42,6 +42,6 @@ fig = go.Figure(
                fill_color='lavender',
                align='left'))
 ])
-
+fig.update_layout(title_text="타이틀 입력")
 fig.show()
 ```
