@@ -32,7 +32,9 @@ import pandas as pd
 
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_usa_states.csv')
 
-fig = go.Figure(data=[go.Table(
+fig = go.Figure(
+    layout=go.Layout(title=go.layout.Title(text="Title 설정하기")),
+    data=[go.Table(
     header=dict(values=list(df.columns),
                 fill_color='paleturquoise',
                 align='left'),
