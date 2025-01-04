@@ -29,3 +29,8 @@
 ```
 
 https://github.com/gracesjy/handsonml2/tree/master
+redis_prep.zip 
+설치하려면 위에서 다운 받은 후에 압축 풀고 해라.
+(tf39) PS G:\redis_prep> pip install --no-index --find-links g:\redis_prep\ -r requirements.txt
+
+https://stackoverflow.com/questions/67670620/how-to-remove-all-the-documents-from-an-index-in-redisearch
