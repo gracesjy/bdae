@@ -133,13 +133,34 @@ def fill_all(data_all):
     return ret_arr
 
 merge_list(fill_all(parameters_arr))
+## 아래는 결과이다.
+## Value -- Default Value이고, Eng는 Unit.Eng 이고 나머지는 Formala 의 값이다.
+## 결국 Formula 위치와 갯수를 알면 ..
 ['Value', 'Eng', 'M9282', 'M888']
 ['', '', 'To', 'To']
 ['', '', 'MMS', 'AOS']
+## 결국 Formula 위치와 갯수를 알면 .. 뒤의 것만 추출할 수 있다.
 ['Value\n\n', 'Eng\n\n', 'M9282\nTo\nMMS', 'M888\nTo\nAOS']
 ```
+파라미터 관련 된 것만 먼저 넣는다.
+```
+params = []
+a = parameters_arr[0]
+parameter_header_completion = []
+parameter_header_completion.append(a)
+params.append(a)
+yy = merge_list(fill_all(parameters_arr))
+parameter_header_completion.append(yy)
+params.append(yy)
 
+#for jj in yy:
+#    parameter_header_completion.append(jj)
+#    params.append(jj)
+
+parameter_header_completion
+```
 이것은 완본이다.
+위의 것과 붙이면 된다.
 ```
 before_arr = []
 # parameter = 4 개
@@ -194,7 +215,9 @@ for i in range(len(arrs)):
             ext_arr.append(one_row)
 
 params
-[['□', 'Temperature', '232.2', 'L/h', '323', '324'],
+[['Parameter', 'Default', 'Unit', 'Formula'],
+ ['Value\n\n', 'Eng\n\n', 'M9282\nTo\nMMS', 'M888\nTo\nAOS'],
+ ['□', 'Temperature', '232.2', 'L/h', '323', '324'],
  ['□', 'Pressure', '55', 'barg', 'CIP_5', 'CIP_6'],
  ['□',
   'Pressure',
@@ -204,5 +227,5 @@ params
   'CIP_6\n(CIP 4023\nTo 3455)'],
  ['□', 'Param2', '4444', 'L', '5959', '4343'],
  ['□', 'Param3', '555', 'N/A', '434', '3434'],
- ['□', 'Param4', '777', 'N/A', '3232', '444']]        
+ ['□', 'Param4', '777', 'N/A', '3232', '444']]     
 ```
