@@ -229,3 +229,57 @@ params
  ['□', 'Param3', '555', 'N/A', '434', '3434'],
  ['□', 'Param4', '777', 'N/A', '3232', '444']]     
 ```
+역곡에서 
+```
+def merge_list_vertical(params):
+    dic = {}
+    return_arr = []
+    param_final = []
+    # para 줄과 unit (다음 줄)에 formula 값이 없을 때 !!
+    for i in range(2):
+        a_param = params[i]
+        #print('original : ' + str(a_param))
+        for j in range(len(a_param)):
+            val = a_param[j]
+            val = val.replace('\n','')
+            #print('j th ' + str(j) + ',' + val)
+            if j in dic.keys():
+                x = dic.get(j)
+                #print('before : ' + x + ', now : ' + val)
+                x = x + '\n' + val
+                x = x.replace('\n','')
+                dic.update({j:x})
+            else:
+                dic.setdefault(j, val)
+
+    for i in dic.keys():
+        x = dic.get(i)
+        x = x.replace('\n','')
+        param_final.append(x)
+
+    return_arr.append(param_final)
+    param_final = []
+    dic = {}            
+    for i in range(2, len(params)):
+        a_param = params[i]
+        #print('original : ' + str(a_param))
+        for j in range(len(a_param)):
+            val = a_param[j]
+            #print('j th ' + str(j) + ',' + val)
+            if j in dic.keys():
+                x = dic.get(j)
+                #print('before : ' + x + ', now : ' + val)
+                x = x + '\n' + val
+                dic.update({j:x})
+            else:
+                dic.setdefault(j, val)
+
+    for i in dic.keys():
+        x = dic.get(i)
+        x = x.replace('\n','')
+        param_final.append(x)
+
+    return_arr.append(param_final)
+
+    return return_arr
+```
