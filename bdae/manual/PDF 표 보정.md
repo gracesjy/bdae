@@ -282,6 +282,9 @@ def param_redef(params):
 
     return redefined_params
 
+params = [['Parameter', 'Default', 'Eng.', 'Formula'], ['Value', 'Unit'], ['MAX10203', 'JY2020', 'FF02992'], ['To', 'To', 'To'], ['BRX0202', 'BOOS', 'BRX0282']]
+
+param_ref = param_redef(params)
 def merge_list_vertical(params):
     dic = {}
     return_arr = []
