@@ -231,6 +231,57 @@ params
 ```
 역곡에서 
 ```
+def param_redef(params):
+    redefined_params = []
+    if len(params) > 2:
+        param_len = len(params[0])
+        formula_loc = 0
+        for i in range(len(params[0])):
+            if params[0][i].lower().find('formula') >= 0:
+                formula_loc = i 
+                break
+        max_column = 0        
+        if formula_loc > 0:
+            for a in params:
+                a_txt = ','.join(a)
+                if a_txt.lower().find('parameter') >= 0:
+                    continue
+                if a_txt.lower().find('value') >= 0:
+                    continue
+
+                if max_column < len(a):
+                    max_column = len(a)
+
+        print(max_column)
+
+        # parameter line
+        one_row = []
+        one_row.extend(params[0])
+        for i in range(max_column):
+            one_row.append('')
+
+        redefined_params.append(one_row)
+        # value, unit line
+        one_row = []
+        one_row.append('') # parameter 
+        one_row.extend(params[1])
+        for j in range(max_column):
+            one_row.append('')
+            
+        redefined_params.append(one_row)
+
+        # formula ..
+        for i in range(2, len(params),1):
+            print('formalar val : ' + str(params[i]))
+            one_row = []
+            for j in range(formula_loc):
+                one_row.append('')
+                
+            one_row.extend(params[i])
+            redefined_params.append(one_row)
+
+    return redefined_params
+
 def merge_list_vertical(params):
     dic = {}
     return_arr = []
