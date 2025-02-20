@@ -1,6 +1,50 @@
 ### Dynamic SQL
 
 ```
+CREATE PACKAGE dla_pkg AS
+
+   /*
+   || Pipelined function interface.
+   */
+   FUNCTION query_view(
+            p_stmt IN VARCHAR2
+            ) RETURN ANYDATASET PIPELINED USING dla_ot;
+
+   /*
+   || Record types for use across multiple DLA_OT methods.
+   */
+   TYPE rt_dynamic_sql IS RECORD
+   ( cursor      INTEGER
+   , column_cnt  PLS_INTEGER
+   , description DBMS_SQL.DESC_TAB2
+   , execute     INTEGER
+   );
+
+   TYPE rt_anytype_metadata IS RECORD
+   ( precision PLS_INTEGER
+   , scale     PLS_INTEGER
+   , length    PLS_INTEGER
+   , csid      PLS_INTEGER
+   , csfrm     PLS_INTEGER
+   , schema    VARCHAR2(30)
+   , type      ANYTYPE
+   , name      VARCHAR2(30)
+   , version   VARCHAR2(30)
+   , attr_cnt  PLS_INTEGER
+   , attr_type ANYTYPE
+   , attr_name VARCHAR2(128)
+   , typecode  PLS_INTEGER
+   );
+
+   /*
+   || State variable for use across multiple DLA_OT methods.
+   */
+   r_sql rt_dynamic_sql;
+
+END dla_pkg; 
+```
+
+```
 CREATE OR REPLACE TYPE GPM.dla_ot AS OBJECT
  (
    atype ANYTYPE --<-- transient record type
