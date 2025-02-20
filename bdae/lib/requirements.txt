@@ -1,5 +1,0 @@
-cx_Oracle
-numpy
-sqlalchemy
-scikit-learn
-openpyxl
