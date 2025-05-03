@@ -172,7 +172,7 @@ alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'<br>
 	
 13. 여기까지는 특별히 문제는 없었고, 아래는 기타 사항으로 트러블 슈팅 용임.<br>
 
-'''
+
    11  yum update
   122  yum install /media/sf_LinuxGuru/flexiblas-devel-3.0.4-7.el9.x86_64.rpm
   123  yum install flexiblas-devel
@@ -208,4 +208,4 @@ alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'<br>
   155  dnf install protoc
   177  dnf install lib-curl
   178  dnf install curl-devel
-  '''
+
