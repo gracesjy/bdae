@@ -6,85 +6,78 @@
 3. 소프트웨어 - Workstation 선택
 4. root 암호 설정<br>
    > sudo passwd root
-5. 네트워크 호스트 이름 설정<br><br>
-
-
-6. dnf update 수행<br>
+5. 네트워크 호스트 이름 설정
+   > hostnamectl --static set-hostname <새로운_호스트명>
+7. dnf update 수행<br>
    /etc/hosts <br>
    177.175.54.97 vbox.localdomain vbox<br><br>
 
    
-여기까지 한 후에 Virtual Box 로 내보내기 함.<br>
+여기까지 한 후에 Virtual Box 로 내보내기 함(.ova)<br>
+마치 백업 했다고 여기고 기존 것으로 계속 진행.<br>  
    
-   
-** 복구후에는 아래 처럼 root 암호 **<br>
-** VirtualBox 설정에서 클립보드 양방향, 공유 폴더 선언 해야 함. **<br><br>
+**기동 후에 아래 처럼 root 암호**<br>
+**VirtualBox 설정에서 클립보드 양방향, 공유 폴더 선언 해야 함.**
+8. Oracle 23AI 설치 전에 환경 셋업<br>
+   > dnf -y install oracle-database-preinstall-23ai<br><br>
 
-dnf -y install oracle-database-preinstall-23ai<br><br>
-
-2. oracle db 설치<br>
+9. oracle db 설치<br>
    이미 다운로드 해 둔 것임.<br>
    > 먼저 오라클 계정 등의 시스템 설정 변경 건.<br>
    > <br>
-dnf -y install oracle-database-preinstall-23ai<br>
-또는<br>
-dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm<br>
-sysctl -p    <br>
+   
+   > dnf -y install oracle-database-preinstall-23ai<br>
+   > 또는<br>
+   > dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm<br>
+   > sysctl -p    <br>
 <br>
-** 오라클 계정이 설정/권한 되었는지 확인 **<br>
+**오라클 계정이 설정/권한 되었는지 확인**<br>
 <br>
 tail -1 /etc/passwd<br>
 tail -7 /etc/group<br>
 <br>
-** /etc/group 에 다음 추가 - 마운트 파일에 접근 권한 oracle 에게 주려고<br>
+**/etc/group 에 다음 추가 - 마운트 파일에 접근 권한 oracle 에게 주려고**<br>
 <br>
 vboxsf:x:974:oracle<br>
 <br>
 
-** vi /etc/selinux/config **<br>
+**vi /etc/selinux/config**<br>
 <br>
-SELINUX=disabled<br>
+   > SELINUX=disabled<br>
 <br>
 
-** 아래 관련 shell 만들어서 한꺼번에 실행 **<br>
+**아래 관련 shell 만들어서 한꺼번에 실행**<br>
 <br><br>
+```
+systemctl stop firewalld
+systemctl disable firewalld
+systemctl stop bluetooth
+systemctl disable bluetooth
+systemctl stop chronyd
+systemctl disable chronyd
+mv /etc/chrony.conf /etc/chrony.conf.bak
+systemctl stop ntpdate
+systemctl disable ntpdate
+systemctl stop avahi-daemon.socket
+systemctl disable avahi-daemon.socket
+systemctl stop avahi-daemon
+systemctl disable avahi-daemon
+systemctl stop libvirtd
+systemctl disable libvirtd
+```
 
-systemctl stop firewalld<br>
-systemctl disable firewalld<br>
- <br>
-systemctl stop bluetooth<br>
-systemctl disable bluetooth<br>
- <br>
-systemctl stop chronyd<br>
-systemctl disable chronyd<br>
-mv /etc/chrony.conf /etc/chrony.conf.bak<br>
- 
-systemctl stop ntpdate<br>
-systemctl disable ntpdate<br>
- 
-systemctl stop avahi-daemon.socket<br>
-systemctl disable avahi-daemon.socket<br>
- 
-systemctl stop avahi-daemon<br>
-systemctl disable avahi-daemon<br>
- 
-systemctl stop libvirtd<br>
-systemctl disable libvirtd<br>
-
-
-** passwd oracle 실행 **<br>
+**passwd oracle 실행**<br>
 이제 설치한다.<br>
-dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm<br>
+   > dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm<br>
+**가상 시스템의 메모리를 좀 줄이고 실행 시킨 후에**<br>
 <br>
-** 가상 시스템의 메모리를 좀 줄이고 실행 시킨 후에 **<br>
-<br>
-/etc/init.d/oracle-free-23ai configure 시킨다.<br>
+   > /etc/init.d/oracle-free-23ai configure 시킨다.<br>
 <br><br>
 
 ** 가상 시스템 메모리를 다시 올려 두고 실행한다. **<br>
 
 ** su - oracle **<br>
-
+```
 $ vi .bash_profile <br>
 
 export ORACLE_BASE=/opt/oracle<br>
@@ -95,9 +88,9 @@ export NLS_LANG=AMERICAN_AMERICA.KO16KSC5601<br>
 alias ss='sqlplus / as sysdba'<br>
 alias sysc='sqlplus sys/oracle@localhost:1521/FREE as sysdba'<br>
 alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'<br>
+```
 
-
-** 오라클 설치 후에 작업 **<br>
+**오라클 설치 후에 작업**<br>
 ```
 SELECT    
 	A.TABLESPACE_NAME,
