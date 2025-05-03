@@ -3,10 +3,10 @@
 
 1.  설치 화면에서
    1. 저장 장치
-   2. 소프트웨어 - Workstation 선택
-   3. root 암호 설정
+   1. 소프트웨어 - Workstation 선택
+   1. root 암호 설정
    > sudo passwd root
-   4. 네트워크 호스트 이름 설정<br><br>
+   1. 네트워크 호스트 이름 설정<br><br>
 
 
    dnf update 수행<br>
