@@ -2,14 +2,14 @@
 <span style="color:blue"> OEL 8 + Oracle 23AI + Python with anaconda + R + BDAE 까지 테스트 위한 것들 </span>
 
 1.  설치 화면에서
-   1. 저장 장치
-   1. 소프트웨어 - Workstation 선택
-   1. root 암호 설정
-   	> sudo passwd root
-   1. 네트워크 호스트 이름 설정<br><br>
+2. 저장 장치
+3. 소프트웨어 - Workstation 선택
+4. root 암호 설정<br>
+   > sudo passwd root
+5. 네트워크 호스트 이름 설정<br><br>
 
 
-   dnf update 수행<br>
+6. dnf update 수행<br>
    /etc/hosts <br>
    177.175.54.97 vbox.localdomain vbox<br><br>
 
