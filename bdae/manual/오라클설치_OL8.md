@@ -30,22 +30,29 @@ dnf -y install oracle-database-preinstall-23ai
    > 
 '''
 dnf -y install oracle-database-preinstall-23ai
+'''
 또는
+'''
 dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm
-
 sysctl -p    
-   
-tail -1 /etc/passwd # 오라클 계정이 설정 되었는지 확인
-tail -7 /etc/group  # 기타 권한 설정 확인 
-
-vi /etc/group 에 다음 추가 - 마운트 파일에 접근 권한 oracle 에게 주려고
+'''
+** 오라클 계정이 설정/권한 되었는지 확인 **
+'''
+tail -1 /etc/passwd
+tail -7 /etc/group
+'''
+** /etc/group 에 다음 추가 - 마운트 파일에 접근 권한 oracle 에게 주려고
+'''
 vboxsf:x:974:oracle
+'''
 
-
-# vi /etc/selinux/config
+** vi /etc/selinux/config **
+'''
 SELINUX=disabled
+'''
 
-아래 관련 shell 만들어서 한꺼번에 실행
+** 아래 관련 shell 만들어서 한꺼번에 실행 **
+'''
 systemctl stop firewalld
 systemctl disable firewalld
  
