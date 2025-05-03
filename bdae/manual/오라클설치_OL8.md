@@ -87,10 +87,12 @@ dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm
 /etc/init.d/oracle-free-23ai configure 시킨다.
 '''
 
-# 가상 시스템 메모리를 다시 올려 두고 실행한다.
+** 가상 시스템 메모리를 다시 올려 두고 실행한다. **
 
+'''
 # su - oracle
 $ vi .bash_profile 
+
 export ORACLE_BASE=/opt/oracle
 export ORACLE_HOME=/opt/oracle/product/23ai/dbhomeFree/
 export ORACLE_SID=FREE
@@ -99,10 +101,12 @@ export NLS_LANG=AMERICAN_AMERICA.KO16KSC5601
 alias ss='sqlplus / as sysdba'
 alias sysc='sqlplus sys/oracle@localhost:1521/FREE as sysdba'
 alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'
+'''
 
 
-# 오라클
+** 오라클 설치 후에 작업 **
 
+'''
 SELECT    
 	A.TABLESPACE_NAME,
 	A.FILE_NAME ,
@@ -148,56 +152,60 @@ ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
 
 
 imp rquser/nebula file=./export.dmp fromuser=rquser touser=rquser
+'''
 
-
-## R 설치가 OEL8 이 OEL9 보다 어렵다 ?. 주의 해야 한다.
+**  R 설치가 OEL8 이 OEL9 보다 어렵다 ?. 주의 해야 한다. **
+'''
 dnf install epel-release
 dnf --enablerepo=ol8_codeready_builder install openblas-devel
 dnf install R
+'''
 
-R 에서 Rcpp 설치,
-파일에서 RInside 설치한다
-/usr/lib64/R/library/Rcpp 의 libs/Rcpp.so 를 lib/libRcpp.so 로 심볼릭 링크 후에
-
-
-oracle home (/home/oracle) 에서 workspace 디렉토리 만들고,
-    cd /home/oracle/workspace
-    cp /media/sf_LinuxGuru/oracle_linux_db_rpm/ODCI*.gz .
-	tar cvfz ... 푼다.
+** R 에서 Rcpp 설치, 파일에서 RInside 설치한다. **
+/usr/lib64/R/library/Rcpp 의 libs/Rcpp.so 를 lib/libRcpp.so 로 심볼릭 링크 후에<br>
+oracle home (/home/oracle) 에서 workspace 디렉토리 만들고,<br>
+    cd /home/oracle/workspace<br>
+    cp /media/sf_LinuxGuru/oracle_linux_db_rpm/ODCI*.gz .<br>
+    tar cvfz ... 푼다.<br>
 	
-eclipse 로 개발 환경은 
-    > mkdir $HOME/repo
-	> cp eclipse-inst-jre-linux64.tar.gz $HOME/repo
-	> cd $HOME/repo 에서 위를 푼다음, eclipse-installer 에서 실행 시키면 됨.
-	> 실행 한 다음 위의 workspace 를 선택하면 개발 환경은 끝난 것임.
-	> yum install clang 을 설치하면 좋다.
+eclipse 로 개발 환경은 <br>
+    > mkdir $HOME/repo<br>
+	> cp eclipse-inst-jre-linux64.tar.gz $HOME/repo<br>
+	> cd $HOME/repo 에서 위를 푼다음, eclipse-installer 에서 실행 시키면 됨.<br>
+	> 실행 한 다음 위의 workspace 를 선택하면 개발 환경은 끝난 것임.<br>
+	> yum install clang 을 설치하면 좋다.<br><br>
 	
 	
 	
-시도 해 보기, 재기동 후 성공 했었음.
+시도 해 보기, 재기동 후 성공 했었음.<br>
 
 
 
 
--- 아래는 참조 하면 된다. 
+** 아래는 참조 하면 된다.  **
 
-# 오류 찾기
+1. 오류 찾기
+'''
 yum install libxml2-devel
 dnf install protobuf
+'''
 
 다시 한번 재기동 후에 성공하나 확인
 
 
-# Ananconda 설치한다
+2. Ananconda 설치한다
+   '''
 conda create -n tf39 python=3.9.*
+'''
 
-> 반드시 activate 한 후에 R 설치한다.
+> 반드시 activate 한 후에 R 설치한다.<br>
+'''
 conda activate tf39
 conda install -c conda-forge r-essentials
+'''
 
-
--- TEST
-
+-- TEST .. 이것은 굳이 하지 않아도 된다.  참고만 하자. <br>
+'''
     9  dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm
    63  dnf -y localinstall oracle-database-free-23ai-1.0-1.el8.x86_64.rpm
    65  dnf -y localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm
@@ -227,3 +235,4 @@ conda install -c conda-forge r-essentials
    89  yum install protobuf
   188  yum install gsl-devel
   189  yum install libxml2-devel
+'''
