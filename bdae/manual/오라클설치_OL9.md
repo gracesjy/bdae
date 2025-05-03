@@ -170,42 +170,42 @@ alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'<br>
 	> yum install clang 을 설치하면 좋다.<br><br>
 	
 	
-13. 여기까지는 특별히 문제는 없었고, 아래는 기타 사항으로 트러블 슈팅 용임.<br>
+13. 여기까지는 특별히 문제는 없었고, 아래는 기타 사항으로 트러블 슈팅 용임.<br><br>
 
 
-   11  yum update
-  122  yum install /media/sf_LinuxGuru/flexiblas-devel-3.0.4-7.el9.x86_64.rpm
-  123  yum install flexiblas-devel
-  124  yum config-manager --set-enabled powertools
-  130  yum install /media/sf_LinuxGuru/flexiblas-devel-3.0.4-8.el9.x86_64.rpm
-  132  yum install /media/sf_LinuxGuru/libtirpc-devel-1.3.3-9.el9.x86_64.rpm
-  134  yum install /media/sf_LinuxGuru/flexiblas-devel-3.0.4-8.el9.x86_64.rpm
+   11  yum update<br>
+  122  yum install /media/sf_LinuxGuru/flexiblas-devel-3.0.4-7.el9.x86_64.rpm<br>
+  123  yum install flexiblas-devel<br>
+  124  yum config-manager --set-enabled powertools<br>
+  130  yum install /media/sf_LinuxGuru/flexiblas-devel-3.0.4-8.el9.x86_64.rpm<br>
+  132  yum install /media/sf_LinuxGuru/libtirpc-devel-1.3.3-9.el9.x86_64.rpm<br>
+  134  yum install /media/sf_LinuxGuru/flexiblas-devel-3.0.4-8.el9.x86_64.rpm<br><br>
 
-   24  dnf install -y oracle-database-preinstall-19c
-   26  dnf install -y oracle-database-free*
-   30  dnf install -y oracle-database-free-23ai-1.0-1.el9.x86_64.rpm
-   65  dnf install .//home/raymond/다운로드/dbeaver-ce-25.0.3-stable.x86_64.rpm
-   66  dnf install /home/raymond/다운로드/dbeaver-ce-25.0.3-stable.x86_64.rpm
-   67  dnf install ibus-hangul
-  112  dnf install -y R-4.3.3-1.el8.x86_64.rpm
-  113  dnf install R-*
-  114  dnf install R
-  116  dnf install libicu
-  117  dnf install epel-release
-  118  dnf install R
-  119  dnf install flexiblas-devel
-  125  dnf install 'dnf-command(config-manager)' 
-  126  dnf install R
-  127  dnf install R --nobest
-  128  dnf install R --skip-broken
-  133  dnf install R
-  135  dnf --enablerepo=ol9_codeready_builder install flexiblas-netlib64
-  136  dnf install R
-  137  dnf --enablerepo=ol9_codeready_builder install flexiblas-devel
-  138  dnf install R
-  153  dnf install libprotobuf
-  154  dnf install protobuf
-  155  dnf install protoc
-  177  dnf install lib-curl
-  178  dnf install curl-devel
+   24  dnf install -y oracle-database-preinstall-19c<br>
+   26  dnf install -y oracle-database-free*<br>
+   30  dnf install -y oracle-database-free-23ai-1.0-1.el9.x86_64.rpm<br>
+   65  dnf install .//home/raymond/다운로드/dbeaver-ce-25.0.3-stable.x86_64.rpm<br>
+   66  dnf install /home/raymond/다운로드/dbeaver-ce-25.0.3-stable.x86_64.rpm<br>
+   67  dnf install ibus-hangul<br>
+  112  dnf install -y R-4.3.3-1.el8.x86_64.rpm<br>
+  113  dnf install R-*<br>
+  114  dnf install R<br>
+  116  dnf install libicu<br>
+  117  dnf install epel-release<br>
+  118  dnf install R<br>
+  119  dnf install flexiblas-devel<br>
+  125  dnf install 'dnf-command(config-manager)' <br>
+  126  dnf install R<br>
+  127  dnf install R --nobest<br>
+  128  dnf install R --skip-broken<br>
+  133  dnf install R<br>
+  135  dnf --enablerepo=ol9_codeready_builder install flexiblas-netlib64<br>
+  136  dnf install R<br>
+  137  dnf --enablerepo=ol9_codeready_builder install flexiblas-devel<br>
+  138  dnf install R<br>
+  153  dnf install libprotobuf<br>
+  154  dnf install protobuf<br>
+  155  dnf install protoc<br>
+  177  dnf install lib-curl<br>
+  178  dnf install curl-devel<br>
 
