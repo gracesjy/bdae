@@ -47,30 +47,29 @@ SELINUX=disabled<br>
 <br>
 
 ** 아래 관련 shell 만들어서 한꺼번에 실행 **<br>
-<br>
-'''
-systemctl stop firewalld
-systemctl disable firewalld
+<br><br>
+
+systemctl stop firewalld<br>
+systemctl disable firewalld<br>
+ <br>
+systemctl stop bluetooth<br>
+systemctl disable bluetooth<br>
+ <br>
+systemctl stop chronyd<br>
+systemctl disable chronyd<br>
+mv /etc/chrony.conf /etc/chrony.conf.bak<br>
  
-systemctl stop bluetooth
-systemctl disable bluetooth
+systemctl stop ntpdate<br>
+systemctl disable ntpdate<br>
  
-systemctl stop chronyd
-systemctl disable chronyd
-mv /etc/chrony.conf /etc/chrony.conf.bak
+systemctl stop avahi-daemon.socket<br>
+systemctl disable avahi-daemon.socket<br>
  
-systemctl stop ntpdate
-systemctl disable ntpdate
+systemctl stop avahi-daemon<br>
+systemctl disable avahi-daemon<br>
  
-systemctl stop avahi-daemon.socket
-systemctl disable avahi-daemon.socket
- 
-systemctl stop avahi-daemon
-systemctl disable avahi-daemon
- 
-systemctl stop libvirtd
-systemctl disable libvirtd
-'''
+systemctl stop libvirtd<br>
+systemctl disable libvirtd<br>
 
 
 ** passwd oracle 실행 **<br>
@@ -86,18 +85,16 @@ dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm<br>
 
 ** su - oracle **<br>
 
-'''
-$ vi .bash_profile 
+$ vi .bash_profile <br>
 
-export ORACLE_BASE=/opt/oracle
-export ORACLE_HOME=/opt/oracle/product/23ai/dbhomeFree/
-export ORACLE_SID=FREE
-export PATH=$PATH:$ORACLE_HOME/bin
-export NLS_LANG=AMERICAN_AMERICA.KO16KSC5601
-alias ss='sqlplus / as sysdba'
-alias sysc='sqlplus sys/oracle@localhost:1521/FREE as sysdba'
-alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'
-'''
+export ORACLE_BASE=/opt/oracle<br>
+export ORACLE_HOME=/opt/oracle/product/23ai/dbhomeFree/<br>
+export ORACLE_SID=FREE<br>
+export PATH=$PATH:$ORACLE_HOME/bin<br>
+export NLS_LANG=AMERICAN_AMERICA.KO16KSC5601<br>
+alias ss='sqlplus / as sysdba'<br>
+alias sysc='sqlplus sys/oracle@localhost:1521/FREE as sysdba'<br>
+alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'<br>
 
 
 ** 오라클 설치 후에 작업 **<br>
