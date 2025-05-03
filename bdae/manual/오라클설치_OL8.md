@@ -92,6 +92,8 @@ dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm
 '''
 ** su - oracle **
 '''
+
+'''
 $ vi .bash_profile 
 
 export ORACLE_BASE=/opt/oracle
@@ -206,34 +208,33 @@ conda install -c conda-forge r-essentials
 '''
 
 -- TEST .. 이것은 굳이 하지 않아도 된다.  참고만 하자. <br>
-'''
-    9  dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm
-   63  dnf -y localinstall oracle-database-free-23ai-1.0-1.el8.x86_64.rpm
-   65  dnf -y localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm
-   71  dnf install libnsl
-   75  dnf install epel-release
-   76  dnf install R
-   77  dnf --enablerepo=ol9_codeready_builder install flexiblas-devel
-   78  dnf --enablerepo=ol8_codeready_builder install flexiblas-devel
-   79  dnf --enablerepo=ol9_codeready_builder install flexiblas-netlib64
-   80  dnf --enablerepo=ol8_codeready_builder install flexiblas-netlib64
-   81  dnf --enablerepo=ol8_codeready_builder install openblas-devel
-   82  dnf install R
-   96  dnf install protobuf-compiler
-   97  dnf install protoc
-   98  dnf install libicu
-  122  dnf install libblas-dev
-  150  dnf install protobuf-devel
-  160  dnf install R-studio
-  161  dnf install R-studioexit
-  178  dnf install gsl-devel
-  180  dnf install curl-devel
-  187  dnf install libxml2-dev
-  252  dnf install libglpk-dev
-  253  dnf -y install glpk
-  255  dnf -y install glpk-devel
+    9  dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm<br>
+   63  dnf -y localinstall oracle-database-free-23ai-1.0-1.el8.x86_64.rpm<br>
+   65  dnf -y localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm<br>
+   71  dnf install libnsl<br>
+   75  dnf install epel-release<br>
+   76  dnf install R<br>
+   77  dnf --enablerepo=ol9_codeready_builder install flexiblas-devel<br>
+   78  dnf --enablerepo=ol8_codeready_builder install flexiblas-devel<br>
+   79  dnf --enablerepo=ol9_codeready_builder install flexiblas-netlib64<br>
+   80  dnf --enablerepo=ol8_codeready_builder install flexiblas-netlib64<br>
+   81  dnf --enablerepo=ol8_codeready_builder install openblas-devel<br>
+   82  dnf install R<br>
+   96  dnf install protobuf-compiler<br>
+   97  dnf install protoc<br>
+   98  dnf install libicu<br>
+  122  dnf install libblas-dev<br>
+  150  dnf install protobuf-devel<br>
+  160  dnf install R-studio<br>
+  161  dnf install R-studioexit<br>
+  178  dnf install gsl-devel<br>
+  180  dnf install curl-devel<br>
+  187  dnf install libxml2-dev<br>
+  252  dnf install libglpk-dev<br>
+  253  dnf -y install glpk<br>
+  255  dnf -y install glpk-devel<br><br>
 
-   89  yum install protobuf
-  188  yum install gsl-devel
-  189  yum install libxml2-devel
-'''
+   89  yum install protobuf<br>
+  188  yum install gsl-devel<br>
+  189  yum install libxml2-devel<br>
+<br>
