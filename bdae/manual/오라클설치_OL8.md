@@ -8,13 +8,13 @@
    > sudo passwd root
    4. 네트워크 호스트 이름 설정
 
-   '''
+'''
    dnf update 수행
    /etc/hosts 
    177.175.54.97 vbox.localdomain vbox
-   '''
+'''
    
-   여기까지 한 후에 Virtual Box 로 내보내기 함.
+여기까지 한 후에 Virtual Box 로 내보내기 함.
    
    
 ** 복구후에는 아래 처럼 root 암호 **
