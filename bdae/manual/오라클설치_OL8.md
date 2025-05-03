@@ -6,52 +6,48 @@
    2. 소프트웨어 - Workstation 선택
    3. root 암호 설정
    > sudo passwd root
-   4. 네트워크 호스트 이름 설정
+   4. 네트워크 호스트 이름 설정<br><br>
 
-'''
-   dnf update 수행
-   /etc/hosts 
-   177.175.54.97 vbox.localdomain vbox
-'''
+
+   dnf update 수행<br>
+   /etc/hosts <br>
+   177.175.54.97 vbox.localdomain vbox<br><br>
+
    
-여기까지 한 후에 Virtual Box 로 내보내기 함.
+여기까지 한 후에 Virtual Box 로 내보내기 함.<br>
    
    
-** 복구후에는 아래 처럼 root 암호 **
-** VirtualBox 설정에서 클립보드 양방향, 공유 폴더 선언 해야 함. **
+** 복구후에는 아래 처럼 root 암호 **<br>
+** VirtualBox 설정에서 클립보드 양방향, 공유 폴더 선언 해야 함. **<br><br>
 
-'''
-dnf -y install oracle-database-preinstall-23ai
-'''
+dnf -y install oracle-database-preinstall-23ai<br><br>
 
-2. oracle db 설치
-   이미 다운로드 해 둔 것임.
-   > 먼저 오라클 계정 등의 시스템 설정 변경 건.
-   > 
-'''
-dnf -y install oracle-database-preinstall-23ai
-'''
-또는
-'''
-dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm
-sysctl -p    
-'''
-** 오라클 계정이 설정/권한 되었는지 확인 **
-'''
-tail -1 /etc/passwd
-tail -7 /etc/group
-'''
-** /etc/group 에 다음 추가 - 마운트 파일에 접근 권한 oracle 에게 주려고
-'''
-vboxsf:x:974:oracle
-'''
+2. oracle db 설치<br>
+   이미 다운로드 해 둔 것임.<br>
+   > 먼저 오라클 계정 등의 시스템 설정 변경 건.<br>
+   > <br>
+dnf -y install oracle-database-preinstall-23ai<br>
+또는<br>
+dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm<br>
+sysctl -p    <br>
+<br>
+** 오라클 계정이 설정/권한 되었는지 확인 **<br>
+<br>
+tail -1 /etc/passwd<br>
+tail -7 /etc/group<br>
+<br>
+** /etc/group 에 다음 추가 - 마운트 파일에 접근 권한 oracle 에게 주려고<br>
+<br>
+vboxsf:x:974:oracle<br>
+<br>
 
-** vi /etc/selinux/config **
-'''
-SELINUX=disabled
-'''
+** vi /etc/selinux/config **<br>
+<br>
+SELINUX=disabled<br>
+<br>
 
-** 아래 관련 shell 만들어서 한꺼번에 실행 **
+** 아래 관련 shell 만들어서 한꺼번에 실행 **<br>
+<br>
 '''
 systemctl stop firewalld
 systemctl disable firewalld
@@ -77,21 +73,18 @@ systemctl disable libvirtd
 '''
 
 
-** passwd oracle 실행 **
+** passwd oracle 실행 **<br>
 이제 설치한다.<br>
-'''
-dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm
-'''
-** 가상 시스템의 메모리를 좀 줄이고 실행 시킨 후에 **
-'''
-/etc/init.d/oracle-free-23ai configure 시킨다.
-'''
+dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm<br>
+<br>
+** 가상 시스템의 메모리를 좀 줄이고 실행 시킨 후에 **<br>
+<br>
+/etc/init.d/oracle-free-23ai configure 시킨다.<br>
+<br><br>
 
-** 가상 시스템 메모리를 다시 올려 두고 실행한다. **
+** 가상 시스템 메모리를 다시 올려 두고 실행한다. **<br>
 
-'''
-** su - oracle **
-'''
+** su - oracle **<br>
 
 '''
 $ vi .bash_profile 
@@ -107,7 +100,7 @@ alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'
 '''
 
 
-** 오라클 설치 후에 작업 **
+** 오라클 설치 후에 작업 **<br>
 
 '''
 SELECT    
@@ -157,14 +150,14 @@ ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
 imp rquser/nebula file=./export.dmp fromuser=rquser touser=rquser
 '''
 
-**  R 설치가 OEL8 이 OEL9 보다 어렵다 ?. 주의 해야 한다. **
-'''
-dnf install epel-release
-dnf --enablerepo=ol8_codeready_builder install openblas-devel
-dnf install R
-'''
+**  R 설치가 OEL8 이 OEL9 보다 어렵다 ?. 주의 해야 한다. **<br>
+<br>
+dnf install epel-release<br>
+dnf --enablerepo=ol8_codeready_builder install openblas-devel<br>
+dnf install R<br>
+<br>
 
-** R 에서 Rcpp 설치, 파일에서 RInside 설치한다. **
+** R 에서 Rcpp 설치, 파일에서 RInside 설치한다. **<br>
 /usr/lib64/R/library/Rcpp 의 libs/Rcpp.so 를 lib/libRcpp.so 로 심볼릭 링크 후에<br>
 oracle home (/home/oracle) 에서 workspace 디렉토리 만들고,<br>
     cd /home/oracle/workspace<br>
@@ -180,32 +173,30 @@ eclipse 로 개발 환경은 <br>
 	
 	
 	
-시도 해 보기, 재기동 후 성공 했었음.<br>
+시도 해 보기, 재기동 후 성공 했었음.<br><br>
 
 
 
 
-** 아래는 참조 하면 된다.  **
+** 아래는 참조 하면 된다.  **<br><br>
 
-1. 오류 찾기
-'''
-yum install libxml2-devel
-dnf install protobuf
-'''
+1. 오류 찾기<br>
+yum install libxml2-devel<br>
+dnf install protobuf<br>
+<br>
 
-다시 한번 재기동 후에 성공하나 확인
+다시 한번 재기동 후에 성공하나 확인<br>
 
 
-2. Ananconda 설치한다
-   '''
-conda create -n tf39 python=3.9.*
-'''
+2. Ananconda 설치한다<br>
+<br>
+conda create -n tf39 python=3.9.*<br><br>
 
-> 반드시 activate 한 후에 R 설치한다.<br>
-'''
-conda activate tf39
-conda install -c conda-forge r-essentials
-'''
+> 반드시 activate 한 후에 R 설치한다.<br<br>
+
+conda activate tf39<br>
+conda install -c conda-forge r-essentials<br>
+
 
 -- TEST .. 이것은 굳이 하지 않아도 된다.  참고만 하자. <br>
     9  dnf -y localinstall oracle-database-preinstall-23ai-1.0-2.el8.x86_64.rpm<br>
