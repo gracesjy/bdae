@@ -99,7 +99,7 @@ alias sysp='sqlplus sys/oracle@localhost:1521/FREEPDB1 as sysdba'<br>
 
 ** 오라클 설치 후에 작업 **<br>
 
-'''
+'''sql
 SELECT    
 	A.TABLESPACE_NAME,
 	A.FILE_NAME ,
@@ -145,7 +145,7 @@ ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
 
 
 imp rquser/nebula file=./export.dmp fromuser=rquser touser=rquser
-'''
+'''sql
 
 **  R 설치가 OEL8 이 OEL9 보다 어렵다 ?. 주의 해야 한다. **<br>
 <br>
