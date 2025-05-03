@@ -5,7 +5,7 @@
    1. 저장 장치
    1. 소프트웨어 - Workstation 선택
    1. root 암호 설정
-   > sudo passwd root
+   	> sudo passwd root
    1. 네트워크 호스트 이름 설정<br><br>
 
 
