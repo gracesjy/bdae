@@ -90,7 +90,8 @@ dnf localinstall ./oracle-database-free-23ai-1.0-1.el9.x86_64.rpm
 ** 가상 시스템 메모리를 다시 올려 두고 실행한다. **
 
 '''
-# su - oracle
+** su - oracle **
+'''
 $ vi .bash_profile 
 
 export ORACLE_BASE=/opt/oracle
