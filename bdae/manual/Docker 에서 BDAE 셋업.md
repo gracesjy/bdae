@@ -44,21 +44,20 @@
 
 4.  move extproc.ora to $ORACLE_HOME/hs/admin<br>
 
-   $ cd<br>
-   $ cd oel8_runtime<br>
-   $ mv extproc.ora  $ORACLE_HOME/hs/admin<br>
+   > $ cd<br>
+   > $ cd oel8_runtime<br>
+   > $ mv extproc.ora  $ORACLE_HOME/hs/admin<br>
 
 5. Installation BDAE<br>
-   $ mkdir -p /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
-   $ mkdir -p /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
-   $ cd <br>
-   $ cd oel8_runtime<br>
-   $ mv libODCI_R_AnyDataSet.so /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
-   $ mv libODCI_Python_AnyDataSet.so /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
+   > $ mkdir -p /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
+   > $ mkdir -p /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
+   > $ cd <br>
+   > $ cd oel8_runtime<br>
+   > $ mv libODCI_R_AnyDataSet.so /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
+   > $ mv libODCI_Python_AnyDataSet.so /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
 
-6.  Database work<br>
-   $ sqlplus / as sysdba<br>
-       --
+6. Database work<br>
+   > $ sqlplus / as sysdba<br>
     ```
 	CREATE TABLESPACE TS_MLDB 
 	DATAFILE '/opt/oracle/oradata/FREE/TS_MLDATA01.dbf'
@@ -72,17 +71,17 @@
 	GRANT CONNECT, RESOURCE TO rquser;
 	GRANT DBA TO rquser;
      
-  ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+  	ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
   ```
- 8.  import BDAE data into Oracle Database
-```
+ 7.  import BDAE data into Oracle Database
+  ```
      imp rquser/nebula file=./export.dmp fromuser=rquser touser=rquser
-```
+  ```
  9. check $ORACLE_HOME/hs/admin/extproc.ora
- ```
+    ```
     SET LD_LIBRARY_PATH=/home/oracle/anaconda3/envs/tf39/lib/R/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/RInside/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/Rcpp/lib:/home/oracle/anaconda3/envs/tf39/lib:/opt/oracle/product/23ai/dbhomeFree/lib
 
 SET R_HOME=/home/oracle/anaconda3/envs/tf39/lib/R
 SET RHOME=/home/oracle/anaconda3/envs/tf39/lib/R
 SET R_LIBS=/home/oracle/anaconda3/envs/tf39/lib/R/library
-```
+   ```
