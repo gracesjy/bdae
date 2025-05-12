@@ -58,7 +58,7 @@
 
 6. Database work<br>
    > $ sqlplus / as sysdba<br>
-    ```
+```
 	CREATE TABLESPACE TS_MLDB 
 	DATAFILE '/opt/oracle/oradata/FREE/TS_MLDATA01.dbf'
 	SIZE 500M REUSE
@@ -72,12 +72,12 @@
 	GRANT DBA TO rquser;
      
   	ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
-  ```
- 7.  import BDAE data into Oracle Database
+```
+7. import BDAE data into Oracle Database
   ```
      imp rquser/nebula file=./export.dmp fromuser=rquser touser=rquser
   ```
- 9. check $ORACLE_HOME/hs/admin/extproc.ora
+8. check $ORACLE_HOME/hs/admin/extproc.ora
     ```
     SET LD_LIBRARY_PATH=/home/oracle/anaconda3/envs/tf39/lib/R/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/RInside/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/Rcpp/lib:/home/oracle/anaconda3/envs/tf39/lib:/opt/oracle/product/23ai/dbhomeFree/lib
 
