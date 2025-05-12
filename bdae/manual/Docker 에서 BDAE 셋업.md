@@ -44,20 +44,20 @@
 
 4.  move extproc.ora to $ORACLE_HOME/hs/admin<br>
 
-   > $ cd<br>
-   > $ cd oel8_runtime<br>
-   > $ mv extproc.ora  $ORACLE_HOME/hs/admin<br>
+    > $ cd<br>
+    > $ cd oel8_runtime<br>
+    > $ mv extproc.ora  $ORACLE_HOME/hs/admin<br>
 
 5. Installation BDAE<br>
-   > $ mkdir -p /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
-   > $ mkdir -p /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
-   > $ cd <br>
-   > $ cd oel8_runtime<br>
-   > $ mv libODCI_R_AnyDataSet.so /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
-   > $ mv libODCI_Python_AnyDataSet.so /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
+    > $ mkdir -p /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
+    > $ mkdir -p /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
+    > $ cd <br>
+    > $ cd oel8_runtime<br>
+    > $ mv libODCI_R_AnyDataSet.so /home/oracle/workspace/ODCI_R_AnyDataSet/Debug<br>
+    > $ mv libODCI_Python_AnyDataSet.so /home/oracle/workspace/ODCI_Python_AnyDataSet/Debug<br>
 
 6. Database work<br>
-   > $ sqlplus / as sysdba<br>
+    > $ sqlplus / as sysdba<br>
 ```
 	CREATE TABLESPACE TS_MLDB 
 	DATAFILE '/opt/oracle/oradata/FREE/TS_MLDATA01.dbf'
