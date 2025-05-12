@@ -1,5 +1,5 @@
 ### How to make <span style="color:blue">BDAE's SQL output</span> using pandas dataframe.
-1) 예를 들면 아래의 BDAE SQL 문에서 출력을 지정하는 것이 복잡할 수 있다.
+> 예를 들면 아래의 BDAE SQL 문에서 출력을 지정하는 것이 복잡할 수 있다.
 
 ```
 SELECT /*+ parallel(5) */*
@@ -25,8 +25,8 @@ SELECT /*+ parallel(5) */*
             'EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID',       
            'ArrayProcessingParallel:compress'))  
 ```
-위에서 아래 부분이 항상 만들기 고통스럽다. <br>
-물론 아래를 View 로 만들면 좋다.  그러나, 그 전에는 일단 만들어야 한다.<br>
+> 위에서 아래 부분이 항상 만들기 고통스럽다. <br>
+> 물론 아래를 View 로 만들면 좋다.  그러나, 그 전에는 일단 만들어야 한다.<br>
 
 ```
 SELECT  CAST(''AA'' AS VARCHAR2(40)) EQP,
@@ -38,7 +38,7 @@ SELECT  CAST(''AA'' AS VARCHAR2(40)) EQP,
              CAST(''AA'' AS VARCHAR2(100)) LOCATION
              FROM DUAL
 ```
-아래 부분을 넣고 돌리면 알아서 만들어 준다.
+> 아래 부분을 넣고 돌리면 알아서 만들어 준다.
 
 ```
 def dtype_to_dbtype(typestr):
