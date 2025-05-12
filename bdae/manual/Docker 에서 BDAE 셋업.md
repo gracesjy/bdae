@@ -11,7 +11,7 @@
     > $ su - root<br>
     > \# chown -R oracle.oinstall /home/oracle/oel8_runtime<br>
     
-    참 우수운 것이 아래 which 가 없으면 R 실행이 되질 않는다 !!!!!!!!!!<br><br>
+    참 우수운 것이 아래 **which 가 없으면 R 실행이 되질 않는다.** !!!!!!!!!!<br><br>
     > cp which command to /usr/bin<br>
     > \# cp /home/oracle/oel8_runtime/which /usr/bin
     > \# chmod 777 /usr/bin/which
