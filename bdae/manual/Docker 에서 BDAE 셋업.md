@@ -9,15 +9,15 @@
     위의 docker cp 로 하면 root 소유권으로 올라간다.<br>
     > docker exec -it oracle-23ai-free /bin/bash<br>
     > $ su - root<br>
-    > # chown -R oracle.oinstall /home/oracle/oel8_runtime<br>
+    > \# chown -R oracle.oinstall /home/oracle/oel8_runtime<br>
     
     참 우수운 것이 아래 which 가 없으면 R 실행이 되질 않는다 !!!!!!!!!!<br><br>
     > cp which command to /usr/bin<br>
 
-    > # cp /home/oracle/oel8_runtime/which /usr/bin
-    > # chmod 777 /usr/bin/which
+    > \# cp /home/oracle/oel8_runtime/which /usr/bin
+    > \# chmod 777 /usr/bin/which
 
-    > # exit
+    > \# exit
 
 3. Installation python and R<br>
     아예 Anaconda 를 설치하는 것이 가장 혼란을 줄이는 것이고,<br>
