@@ -34,9 +34,7 @@
 
     > $ R<br>
     > > install.packages("Rcpp")<br>
-    > > install.packages("/home/oracle/oel8_runtime/RInside_0.2.15.tar.gz")<br>
-
-    # 반드시 해야 한다.<br>
+    > > install.packages("/home/oracle/oel8_runtime/RInside_0.2.15.tar.gz시 반드시 해야 한다.<br>
     (tf39)  $ cd /home/oracle/anaconda3/envs/tf39/lib/R/library/Rcpp<br>
     (tf39)  $ mkdir lib<br>
     (tf39)  $ cd lib<br>
