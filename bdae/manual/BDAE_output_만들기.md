@@ -1,8 +1,45 @@
 ### How to make <span style="color:blue">BDAE's SQL output</span> using pandas dataframe.
-1) 분석 코드를 DB 에 등록 해서 사용한다.  이 분석 코드는 재활용된다.(Register Analysis Codes into DB)<br>
-2) SQL 문으로 실행 결과를 실시간으로 확인한다. (Run SQL and see the results in Real-Time)<br>
-3) 병렬 분산 처리를 수행한다.  이때 분석 코드는 관여하지 않고, Oracle Database 의 병렬 분산 처리를 이용한다.<br>
-   (Use Oracle Parallelism.)
+1) 예를 들면 아래의 BDAE SQL 문에서 출력을 지정하는 것이 복잡할 수 있다.
+
+```
+SELECT /*+ parallel(5) */*
+      FROM table(apGroupEvalParallel(
+         	CURSOR(
+            SELECT EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID,VALUE
+              FROM fdc_trace 
+              WHERE 1=1 
+                AND EQP_ID='EQP-200'
+                AND UNIT_ID='UNIT-02'
+                AND LOT_ID='LOTB-101'
+                AND RECIPE='RECIPE-200'
+            ),
+         	NULL,
+            'SELECT  CAST(''AA'' AS VARCHAR2(40)) EQP,
+             CAST(''AA'' AS VARCHAR2(40)) UNIT,
+             CAST(''AA'' AS VARCHAR2(40)) LOT,
+             CAST(''AA'' AS VARCHAR2(40)) WAFER,
+             CAST(''AA'' AS VARCHAR2(40)) RECIPE,
+             CAST(''AA'' AS VARCHAR2(40)) PARAM,
+             CAST(''AA'' AS VARCHAR2(100)) LOCATION
+             FROM DUAL',
+            'EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID',       
+           'ArrayProcessingParallel:compress'))  
+```
+위에서 아래 부분이 항상 만들기 고통스럽다. <br>
+물론 아래를 View 로 만들면 좋다.  그러나, 그 전에는 일단 만들어야 한다.<br>
+
+```
+SELECT  CAST(''AA'' AS VARCHAR2(40)) EQP,
+             CAST(''AA'' AS VARCHAR2(40)) UNIT,
+             CAST(''AA'' AS VARCHAR2(40)) LOT,
+             CAST(''AA'' AS VARCHAR2(40)) WAFER,
+             CAST(''AA'' AS VARCHAR2(40)) RECIPE,
+             CAST(''AA'' AS VARCHAR2(40)) PARAM,
+             CAST(''AA'' AS VARCHAR2(100)) LOCATION
+             FROM DUAL
+```
+아래 부분을 넣고 돌리면 알아서 만들어 준다.
+
 ```
 def dtype_to_dbtype(typestr):
     return {
