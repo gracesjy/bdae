@@ -1,4 +1,4 @@
-### Smart Factory Example
+## ${\textsf{\color{green}Smart Factory Example}}$
 
 ```
 WITH LOT_SUM_ONE AS (
