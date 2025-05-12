@@ -1,4 +1,4 @@
-## Compress of Sensor Data
+## ${\textsf{\color{green}Compress of Sensor Data}}$
 
 ```
 
