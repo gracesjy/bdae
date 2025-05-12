@@ -1,5 +1,8 @@
 ### How to make <span style="color:blue">BDAE's SQL output</span> using pandas dataframe.
-
+1) 분석 코드를 DB 에 등록 해서 사용한다.  이 분석 코드는 재활용된다.(Register Analysis Codes into DB)<br>
+2) SQL 문으로 실행 결과를 실시간으로 확인한다. (Run SQL and see the results in Real-Time)<br>
+3) 병렬 분산 처리를 수행한다.  이때 분석 코드는 관여하지 않고, Oracle Database 의 병렬 분산 처리를 이용한다.<br>
+   (Use Oracle Parallelism.)
 ```
 def dtype_to_dbtype(typestr):
     return {
