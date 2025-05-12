@@ -78,10 +78,9 @@
      imp rquser/nebula file=./export.dmp fromuser=rquser touser=rquser
   ```
 8. check $ORACLE_HOME/hs/admin/extproc.ora
-    ```
-    SET LD_LIBRARY_PATH=/home/oracle/anaconda3/envs/tf39/lib/R/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/RInside/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/Rcpp/lib:/home/oracle/anaconda3/envs/tf39/lib:/opt/oracle/product/23ai/dbhomeFree/lib
-
+```
+SET LD_LIBRARY_PATH=/home/oracle/anaconda3/envs/tf39/lib/R/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/RInside/lib:/home/oracle/anaconda3/envs/tf39/lib/R/library/Rcpp/lib:/home/oracle/anaconda3/envs/tf39/lib:/opt/oracle/product/23ai/dbhomeFree/lib
 SET R_HOME=/home/oracle/anaconda3/envs/tf39/lib/R
 SET RHOME=/home/oracle/anaconda3/envs/tf39/lib/R
 SET R_LIBS=/home/oracle/anaconda3/envs/tf39/lib/R/library
-   ```
+```
