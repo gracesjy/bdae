@@ -1,4 +1,4 @@
-## How to make <span style="color:blue">BDAE's SQL output</span> using pandas dataframe.
+### How to make <span style="color:blue">BDAE's SQL output</span> using pandas dataframe.
 
 ```
 def dtype_to_dbtype(typestr):
