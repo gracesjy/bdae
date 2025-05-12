@@ -28,8 +28,8 @@
     > (base) $ conda create -n tf39 python=3.9.*<br>
     > (base) $ conda activate tf39<br>
     
-    > ## 세상 놀라운 것이 R 을 이렇게 설치하니 너무 좋다. !!<br>
-    > ## R installation and BDAE dependencies<br>
+    > \## 세상 놀라운 것이 R 을 이렇게 설치하니 너무 좋다. !!<br>
+    > \## R installation and BDAE dependencies<br>
     > (tf39)  $ conda install -c conda-forge r-essentials<br>
 
     > $ R<br>
