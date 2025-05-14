@@ -105,15 +105,19 @@ import sys
 import logging, logging.handlers
 
 def describe(df):
+    # 아래를 넣으면 원격 로그 서버에 들어간다.
+    # 시작
     logger = logging.getLogger('TitanicDesc:describe')
     logger.setLevel(logging.DEBUG)
+
     socketHandler = logging.handlers.SocketHandler('localhost',
                     logging.handlers.DEFAULT_TCP_LOGGING_PORT)
     logger.addHandler(socketHandler)
-    
+    ##  이 부분은 print 를 위한 부분이다. Redirect
     sys.stdout = StreamToLogger(logger,logging.INFO)
     sys.stderr = StreamToLogger(logger,logging.ERROR)
-    
+
+    # 끝
     print('----- start -----')
     colums_ = df.columns.tolist()
     print(str(colums_))
@@ -122,5 +126,10 @@ def describe(df):
     df_desc.reset_index(inplace=True)
     df_desc.columns = ['vars', 'passengerid', 'survived', 'pclass', 'age', 'sibsp', 'parch', 'fare']
     df_melt = pd.melt(df_desc, id_vars=['vars'])
+
+    # 반드시 아래 두줄을 넣어야 한다.
+    socketHandler.close()
+    logger.removeHandler(socketHandler)
+
     return df_melt
 ```
