@@ -94,6 +94,8 @@ if __name__ == '__main__':
 > python LogServer.py
 
 그리고, 이것을 사용하려는 클라이언트(BDAE 의 Python Module 안에서)는 다음과 같이 사용한다.<br>
+아래는 **sys.stdout,stderr** 등을 **Redirect** 하였기 때문에 **print(str(object))** 형태로 모두 출력할 수 <br>
+있다는 점이다.
 ```
 import pandas as pd
 import numpy as np
