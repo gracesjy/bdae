@@ -1,4 +1,4 @@
-## LogServer
+## <p>$\bf{\large{\color{#6580DD}LogServer}}$</p>
 이것은 로그 서버이다.  Python Module 에 접근을 할 때 작동한다.<br>
 그 전에 오류가 나면 이것이 동작하지 않는다. <br>
 
