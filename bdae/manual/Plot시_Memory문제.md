@@ -19,7 +19,8 @@ for i in range(1000):
     plt.savefig(str(i) + '.png') # figure 파일로 저장
 ```
 
-아래 처럼 명시적으로 닫아 주면 된다.
+아래 처럼 명시적으로 닫아 주면 된다.<br>
+plt.close(), ... <br>
 ```
 import matplotlib.pyplot as plt
 import numpy as np
