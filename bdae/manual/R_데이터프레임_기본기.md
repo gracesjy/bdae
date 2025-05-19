@@ -4,10 +4,10 @@
 반드시 넣어야 한다.
 
 ```
-    resno <- c(101, 102, 103, 104, 105)
-    rname <- c('ANDREA', 'NY', 'YANIS', 'CLEVETH', 'ASHIYA')
-    rage <- c('51', '23', '52', '76', '98')
-    df <- data.frame(resno, rname, rage, stringsAsFactors=FALSE)
+resno <- c(101, 102, 103, 104, 105)
+rname <- c('ANDREA', 'NY', 'YANIS', 'CLEVETH', 'ASHIYA')
+rage <- c('51', '23', '52', '76', '98')
+df <- data.frame(resno, rname, rage, stringsAsFactors=FALSE)
 ```
 
 간단히 기술통계량을 구하는 것은 다음의 2가지 라이브러리를 넣자.
@@ -91,9 +91,9 @@ SELECT *
 ```
 
 자, 이제 BDAE 에 입력을 해 보자. <br>
-1. R  모듈
 
-   ```
+1. R  모듈
+```
 function() {
 
     library(psych)
@@ -112,9 +112,8 @@ function() {
     
 	 return (df_des_select_unpivot)
 }
-   ```
-
-2.  SQL
+```
+2. SQL
 ```
 SELECT * 
    FROM 
