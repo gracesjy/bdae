@@ -53,7 +53,9 @@ library 나 특정 오브젝트의 잘못된 타이핑은 찾아낼 수 있지�
     Rcpp::Date dt = dtv[j]; // @suppress("Invalid arguments")
     ```
 
-    Timestamp 형태는 다음과 같이 R 코드를 작성한다.
+    Timestamp 형태는 다음과 같이 R 코드를 작성한다. <br>
+    as.POSIXct 를 사용하면 Datetime 을 얻을 수 있다. <br>
+    다른 라이브러리도 있지만, 앞의 as.Date 과 as.POSIXct 두가지만 가능하다.<br>
     ```
     function() {
        one_time <- as.POSIXct("2015-10-19 10:15")
@@ -89,3 +91,10 @@ library 나 특정 오브젝트의 잘못된 타이핑은 찾아낼 수 있지�
           Rcpp::Datetime dt(dtv[j]); // @suppress("Invalid arguments")
           ....
     ```
+3.  BDAE R 모듈의 validateOutputFormat 함수 관련
+    이 함수는 data.frame 과 SELECT .. FROM dual 의 포맷을 체크한다. <br>
+    data.frame 의 각 컬럼의 포맷과 SELECT ... FROM dual 포맷을 하나 하나 체크한다. <br>
+    앞의 R data.frame 의 Date 과 Datetime 은 실제 Real Number 값이고 이를 확인하기 위해<br>
+    SELECT .. TO_DATE(NULL) or TO_TIMESTAMP(NULL) FROM dual 부분에서 확인한다. <br>
+
+    data.frame 의 각 멤버의 타입을 확인해 두는 것이 좋다.
