@@ -71,14 +71,14 @@ library 나 특정 오브젝트의 잘못된 타이핑은 찾아낼 수 있지�
     ```
     이것에 대한 SQL 은 다음과 같다.
     ```
-    SELECT * 
-    FROM 
-    table(asEval( 
-    NULL, 
-    'SELECT 1 as emp_id, CAST(''A'' AS VARCHAR2(40)) emp_name, 
-           1.0 as salaray,  TO_TIMESTAMP(NULL) start_date
-     FROM dual', 
-   'R_date_raw'))
+     SELECT * 
+     FROM 
+     table(asEval( 
+     NULL, 
+     'SELECT 1 as emp_id, CAST(''A'' AS VARCHAR2(40)) emp_name, 
+            1.0 as salaray,  TO_TIMESTAMP(NULL) start_date
+      FROM dual', 
+     'R_date_raw'))
     ```
 
     이 부분의 BDAE 소스는 다음과 같다.
