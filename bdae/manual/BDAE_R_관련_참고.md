@@ -53,4 +53,39 @@ library 나 특정 오브젝트의 잘못된 타이핑은 찾아낼 수 있지�
     Rcpp::Date dt = dtv[j]; // @suppress("Invalid arguments")
     ```
 
+    Timestamp 형태는 다음과 같이 R 코드를 작성한다.
+    ```
+    function() {
+       one_time <- as.POSIXct("2015-10-19 10:15")
+       emp.data <- data.frame(
+       emp_id = c (1:5), 
+       emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
+       salary = c(623.3,515.2,611.0,729.0,843.25), 
+       start_date = c(one_time, one_time, one_time, one_time, one_time),
+       #start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11","2015-03-27")),
+       stringsAsFactors = FALSE
+       )
+    
+       return (emp.data)
+    }
+    ```
+    이것에 대한 SQL 은 다음과 같다.
+    ```
+    SELECT * 
+    FROM 
+    table(asEval( 
+    NULL, 
+    'SELECT 1 as emp_id, CAST(''A'' AS VARCHAR2(40)) emp_name, 
+           1.0 as salaray,  TO_TIMESTAMP(NULL) start_date
+     FROM dual', 
+   'R_date_raw'))
+    ```
 
+    이 부분의 BDAE 소스는 다음과 같다.
+    ```
+    if (pinoutP->col_output_format[k]->coltype == SQLT_TIMESTAMP) {
+          LOG(_INFO_, "[TYPE] TIMESTAMP \n");
+          Rcpp::DatetimeVector dtv = df[k]; // @suppress("Invalid arguments")
+          Rcpp::Datetime dt(dtv[j]); // @suppress("Invalid arguments")
+          ....
+    ```
