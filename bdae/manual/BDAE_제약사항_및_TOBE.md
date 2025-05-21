@@ -19,10 +19,12 @@
         return pdf
    ```
    > R
-4.  
-5. ㄴㄴㄴ
-6. ㄴ
-7. ㄴ
-8. ㄴ
-9. ㄴ
-10. ㄴㄴ
+   > function 이름이 고정되고, 최대 2개의 argument 가 가능하다.
+   > function(df, df_arg) { 까지를 그대로 따라야 한다.
+   ```
+    function(df, df_arg) {
+
+      return (pdf)
+    }
+   ```
+
