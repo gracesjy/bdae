@@ -28,3 +28,8 @@
     }
    ```
 
+3. 리턴 되는 Python pandas DataFrame, R data.frame 은 모두 1개 이상의 컬럼을 지녀야 한다.<br>
+   특히 Pandas 의 datetime 의 경우 홀로 있게 되면 PyDateTime 으로 인식되지 않는다. <br>
+   따라서 1개 이상의 컬럼이 되는 것을 권장한다.
+   
+
