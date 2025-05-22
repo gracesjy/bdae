@@ -18,7 +18,7 @@
    
         return pdf
    ```
-   > R
+   > R (아래의 스크립트 개선 사항 - 4번 숙독 필요)
    > function 이름이 고정되고, 최대 2개의 argument 가 가능하다.
    > function(df, df_arg) { 까지를 그대로 따라야 한다.
    ```
@@ -73,6 +73,18 @@
    char time_string[80];
    strftime(time_string, sizeof(time_string), "%Y-%m-%d %H:%M:%S", time_info);
    ```
+
+4. R 스크립트 입력의 개선사항
+   Oracle R Enterprise 는 패키지 위주로 되어 있지만, BDAE 는 Embedded SQL 위주이다.<br>
+   R 스크립트의 입력할 때 Oracle R Enterprise 에서 많이 힘들었기 때문에 <br>
+   BDAE Web 으로 입력을 한다.  이건 정말 잘했다. <br><br>
+
+   R 스크립트를 function() 과 기존은 죽 아래로 내려가는 두가지가 있었다. <br>
+   아래로 죽 내려가는 서술형태가 좋긴 하다.  다만 이것의 제약 사항은 <br>
+   R 엔진에게 데이터와 Argument 의 변수명을 확정 지어야 한다는 점이다. <br>
+   ** 데이터 : data,  Argument : args 로 고정하기로 한다. **<br>
+
+   
 
 
 
