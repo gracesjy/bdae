@@ -11,7 +11,16 @@ library(logr)
 library(htmltools)
 library(RCurl)
 ```
-고전적인 ggplot 이나 plot 은 다음과 같이 파일로 만든다.
+먼저 이미지는 Machine Learning 예를 참조 했으니 다음을 추가한다.
+```
+train  <- sample(1:150, 100) 
+train_set  <-  list(x = as.matrix(iris[train,-5]), Species = as.factor(iris[train,5])) 
+test_Set <- list(x = as.matrix(iris[-train,-5]), Species = as.factor(iris[-train,5])) 
+gr <- somgrid(xdim = 3, ydim = 5, topo = "hexagonal") #grid 갯수 및 모양 설정
+ss <- supersom(train_set, gr, rlen = 200, alpha = c(0.05, 0.01)) #som 학습하기
+```
+위의 ss 로 이미지 파일을 생성하려면 다음과 같이 하면 된다. <br>
+고전적인 ggplot 이나 plot 은 다음과 같이 파일로 일단 만들고, data.frame 화 한 후 unlink 로 삭제제.<br>
 ```
 name <- c("/tmp/kohonen01.jpg","/tmp/kohonen02.jpg","/tmp/kohonen03.jpg","/tmp/kohonen04.jpg")
 
@@ -39,8 +48,8 @@ my<-function(img_file) {
 
 	df <- data.frame(name=img_file,stringsAsFactors=FALSE)
 	df$blob <- jpg1_lraw.lst
-   
-  unlink(img_file)
+	# 파일 삭제   
+	unlink(img_file)
 	return (df)
 }
 ```
