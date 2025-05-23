@@ -82,9 +82,80 @@
    R 스크립트를 function() 과 기존은 죽 아래로 내려가는 두가지가 있었다. <br>
    아래로 죽 내려가는 서술형태가 좋긴 하다.  다만 이것의 제약 사항은 <br>
    R 엔진에게 데이터와 Argument 의 변수명을 확정 지어야 한다는 점이다. <br>
-   ** 데이터 : data,  Argument : args 로 고정하기로 한다. **<br>
-
+   ***데이터 : data***,  ***Argument : args*** 로 고정하기로 한다.<br>
+   또한, RSCRIPT 테이블의 ***SCRIPT_TYPE*** 컬럼에 ***Normal*** 이 아닌 ***NEW_TYPE*** 으로 해야 한다.<br>
+   이와 같은 형태의 R script 는 다음과 같이 안에 함수를 별도로 넣어도 된다.<br>
+   ```
+   library(kohonen)
+   library(jpeg)
+   library(logr)
+   library(htmltools)
+   library(RCurl)
+   log_open("/tmp/rlog.log")
+   log_print("Here is a test log statement")
    
+   
+   train  <- sample(1:150, 100) 
+   train_set  <-  list(x = as.matrix(iris[train,-5]), Species = as.factor(iris[train,5])) 
+   test_Set <- list(x = as.matrix(iris[-train,-5]), Species = as.factor(iris[-train,5])) 
+   gr <- somgrid(xdim = 3, ydim = 5, topo = "hexagonal") #grid 갯수 및 모양 설정
+   ss <- supersom(train_set, gr, rlen = 200, alpha = c(0.05, 0.01)) #som 학습하기
+   
+   
+   my<-function(img_file) {
+      log_print('in my function ..')
+      log_print(paste('file_name : ', img_file))
+      log_print(paste('file_size : ', file.info(img_file)[1, "size"]))
+   	zz <- file(img_file, "rb")
+   	jpg1_lraw.lst <- vector("list", 1)
+   	jpg1_lraw.lst[[1L]] <- readBin(zz, "raw", file.info(img_file)[1, "size"])
+   	close(zz)
+   
+   	df <- data.frame(name=img_file,stringsAsFactors=FALSE)
+   	df$blob <- jpg1_lraw.lst
+      
+      unlink(img_file)
+   	return (df)
+   }
+   
+   name <- c("/tmp/kohonen01.jpg","/tmp/kohonen02.jpg","/tmp/kohonen03.jpg","/tmp/kohonen04.jpg")
+   
+   jpeg(name[1])
+   plot(ss,type="changes")
+   dev.off()
+   jpeg(name[2])
+   plot(ss, type="count", main="Node Counts")
+   dev.off()
+   jpeg(name[3])
+   plot(ss, type="dist.neighbours", main = "SOM neighbour distances", shape = "straight")
+   dev.off()
+   jpeg(name[4])
+   plot(ss, type="dist.neighbours", palette.name=grey.colors, shape = "straight")
+   dev.off()
+   
+   log_print('first image :')
+   
+   
+   df = my(name[1])
+   for (i in 2:length(name)) {
+      df_tmp = my(name[i])
+      df = rbind(df, df_tmp)
+   }
+   #df_tmp2 = my(name[2])
+   #df_tmp3 = my(name[3])
+   #df_tmp4 = my(name[4])
+   #df = rbind(df_tmp1, df_tmp2, df_tmp3, df_tmp4)
+   df
+   ```
+   참고로 이것을 호출하는 BDAE SQL 은 다음과 같다.
+   ```
+   SELECT *
+      FROM
+      table(asEval(
+      NULL,
+      'SELECT CAST(''A'' AS VARCHAR2(40)) HEADER, TO_BLOB(NULL) IMG FROM dual',
+      'R_ml_new'))
+   ```
 
 
 
