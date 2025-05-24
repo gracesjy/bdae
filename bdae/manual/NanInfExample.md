@@ -26,3 +26,24 @@ FROM table(apEval(
    )
 
 ```
+R Module 은 다음과 같이 한다.
+```
+X <- c(1,2,3,NA,5)
+Y <- c(1.1,-1.0/0,1.0/0,4.0,5.34)
+
+df <- data.frame(X,Y)
+df
+```
+SQL 은 다음처럼
+```
+SELECT A, case when B=-binary_double_infinity then '-Infinity' 
+               when B=binary_double_infinity then '+Infinity'
+               else TO_CHAR(B) END AS B FROM (
+ SELECT *
+   FROM
+   table(asEval(
+   NULL,
+   'SELECT 1 as A, 1.0 as B FROM dual',
+   'R_infinity'))
+)
+```
