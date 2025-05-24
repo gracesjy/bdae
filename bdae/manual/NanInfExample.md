@@ -15,7 +15,9 @@ def returnNAN():
 
 SQL
 ```
-SELECT ID, VALUE2, case when VALUE3=binary_double_infinity then 'Infinity' else TO_CHAR(VALUE3) END AS VALUE3 FROM (   
+SELECT ID, VALUE2, case when VALUE3=binary_double_infinity then '+Infinity'
+                        when VALUE3=-binary_double_infinity then '-Infinity'
+                   else TO_CHAR(VALUE3) END AS VALUE3 FROM (   
 SELECT *
 FROM table(apEval(
    NULL,
