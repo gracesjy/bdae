@@ -300,3 +300,94 @@ rawHTMLs <- c(rawHTML01, rawHTML02, rawHTML03, rawHTML04, rawHTML05)
 df <- data.frame(hdr, rawHTMLs, stringsAsFactors=FALSE)
 df
 ```
+
+BLOB
+```
+SELECT * 
+      FROM 
+        table(asTableEval( 
+          cursor(SELECT * FROM KSPI), 
+          cursor(SELECT 10 AS SMA1, 30 AS SMA2 FROM DUAL),
+          'SELECT CAST(''A'' AS VARCHAR2(40)) PATH, 
+                  TO_BLOB(NULL) img 
+           FROM dual', 
+          'Kospi_NEW_TYPE'))
+```
+Kospi_NEW_TYPE 는 다음과 같다.
+```
+## KOSPI, NEW_TYPE
+# RSCRIPT.STYLE_TYPE != Normal, Input Data -> data, Arguments -> args are fixed.
+library(xts)
+library(quantmod)
+library(RCurl)
+library(logr)
+library(xts)
+library(quantmod)
+library(RCurl)
+
+sma1 = args$SMA1
+sma2 = args$SMA2
+
+data2 <- data.frame(data$open,data$high, data$low, data$close, data$volume, data$adjusted, row.names=data$row.names)
+s1 <- as.xts(data2)
+png(tf1 <- tempfile(fileext = ".png"), width=1920, height=1080)
+taS <- sprintf("addMACD();addBBands();addSMA(%d);addSMA(%d,col='blue')", sma1[[1]],sma2[[1]])
+chartSeries(s1['2016-03-10::'], up.col='red',dn.col='blue',theme='white',name="Samsung",TA=taS)
+dev.off()
+
+rm(data)
+rm(data2)
+df <- data.frame(a=tf1,stringsAsFactors=FALSE)
+lraw.lst <- vector("list", 1)
+lraw.lst[[1L]] <- readBin(tf1, "raw", file.info(tf1)[1, "size"])
+unlink(tf1)
+df$blob <- lraw.lst
+df
+```
+
+***Serialize***
+```
+
+SELECT *
+   FROM
+   table(asEval(
+   NULL,
+   'SELECT CAST(''A'' AS VARCHAR2(40)) HEADER, TO_BLOB(NULL) SERIAL FROM dual',
+   'R_serial_new'))
+```
+
+```
+library(RProtoBuf)
+buf <- RProtoBuf::serialize_pb(iris, NULL)
+
+raw.lst <- vector("list", 1)
+raw.lst[[1L]] <- buf
+df <- data.frame(name='serial01',stringsAsFactors=FALSE)
+df$blob <- raw.lst
+df
+```
+
+***DeSerialize***
+```
+select *
+  from table(
+      asEval(
+         cursor(
+            SELECT "name", "data" as "blob" FROM serial WHERE "name" = 'serial01'
+         ),
+         'select 1.0 A, 1.0 B, 1.0 C, 1.0 D, cast(''A'' as VARCHAR2(4000)) species from dual',
+         'R_unserial'))
+```
+
+```
+# data, args
+
+library(RProtoBuf)
+x = args$blob
+class(x) <- class(x)[-match("AsIs", class(x))]
+d <- x[[1]]
+class(d) <- class(d)[-match("AsIs", class(d))]
+pdf <- RProtoBuf::unserialize_pb(d)
+pdf$Species <- as.character(pdf$Species)
+pdf
+```
