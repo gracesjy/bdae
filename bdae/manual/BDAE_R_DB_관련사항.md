@@ -180,3 +180,123 @@ function(data, args) {
     df <- data.frame(resno, rname, rage, stringsAsFactors=FALSE)
     return (df)
 ```
+***asEval***
+```
+SELECT * 
+   FROM 
+   table(asEval( 
+   NULL, 
+   'SELECT CAST(''A'' AS VARCHAR2(40)) PATH, 
+           TO_CLOB(NULL) img 
+    FROM dual', 
+   'Graph_R_02'))
+```
+Graph_R_02 는 다음과 같다.
+```
+library(plotly)
+library(htmltools)
+p <- plot_ly(midwest, x = ~percollege, color = ~state, type = "box")
+ppc <- htmltools::div(p, align='center')
+htmltools::save_html(ppc, '/tmp/test04.html')
+rawHTML01 <- paste(readLines('/tmp/test04.html'), collapse='\n')
+unlink('/tmp/test04.html')
+
+p2 <- plot_ly(
+  x = c(-9, -6, -5, -3, -1), 
+  y = c(0, 1, 4, 5, 7), 
+  z = matrix(c(10, 10.625, 12.5, 15.625, 20, 5.625, 6.25, 8.125, 11.25, 15.625, 2.5, 3.125, 5, 8.125, 12.5, 0.625, 1.25, 3.125,
+        6.25, 10.625, 0, 0.625, 2.5, 5.625, 10), nrow = 5, ncol = 5), 
+  type = "contour" 
+)
+
+ppc2 <- htmltools::div(p2, align='center')
+htmltools::save_html(ppc2, '/tmp/test05.html')
+rawHTML02 <- paste(readLines('/tmp/test05.html'), collapse='\n')
+unlink('/tmp/test05.html')
+
+month <- c('January', 'February', 'March', 'April', 'May', 'June', 'July',
+           'August', 'September', 'October', 'November', 'December')
+high_2014 <- c(28.8, 28.5, 37.0, 56.8, 69.7, 79.7, 78.5, 77.8, 74.1, 62.6, 45.3, 39.9)
+low_2014 <- c(12.7, 14.3, 18.6, 35.5, 49.9, 58.0, 60.0, 58.6, 51.7, 45.2, 32.2, 29.1)
+data <- data.frame(month, high_2014, low_2014)
+data$average_2014 <- rowMeans(data[,c("high_2014", "low_2014")])
+
+#The default order will be alphabetized unless specified as below:
+data$month <- factor(data$month, levels = data[["month"]])
+
+p3 <- plot_ly(data, x = ~month, y = ~high_2014, type = 'scatter', mode = 'lines',
+        line = list(color = 'transparent'),
+        showlegend = FALSE, name = 'High 2014') %>%
+  add_trace(y = ~low_2014, type = 'scatter', mode = 'lines',
+            fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)', line = list(color = 'transparent'),
+            showlegend = FALSE, name = 'Low 2014') %>%
+  add_trace(x = ~month, y = ~average_2014, type = 'scatter', mode = 'lines',
+            line = list(color='rgb(0,100,80)'),
+            name = 'Average') %>%
+  layout(title = "Average, High and Low Temperatures in New York",
+         paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(229,229,229)',
+         xaxis = list(title = "Months",
+                      gridcolor = 'rgb(255,255,255)',
+                      showgrid = TRUE,
+                      showline = FALSE,
+                      showticklabels = TRUE,
+                      tickcolor = 'rgb(127,127,127)',
+                      ticks = 'outside',
+                      zeroline = FALSE),
+         yaxis = list(title = "Temperature (degrees F)",
+                      gridcolor = 'rgb(255,255,255)',
+                      showgrid = TRUE,
+                      showline = FALSE,
+                      showticklabels = TRUE,
+                      tickcolor = 'rgb(127,127,127)',
+                      ticks = 'outside',
+                      zeroline = FALSE))
+
+ppc3 <- htmltools::div(p3, align='center')
+htmltools::save_html(ppc3, '/tmp/test06.html')
+rawHTML03 <- paste(readLines('/tmp/test06.html'), collapse='\n')
+unlink('/tmp/test06.html')
+
+
+trace_0 <- rnorm(100, mean = 5)
+trace_1 <- rnorm(100, mean = 0)
+trace_2 <- rnorm(100, mean = -5)
+x <- c(1:100)
+
+data <- data.frame(x, trace_0, trace_1, trace_2)
+
+p4 <- plot_ly(data, x = ~x, y = ~trace_0, name = 'trace 0', type = 'scatter', mode = 'lines') %>%
+  add_trace(y = ~trace_1, name = 'trace 1', mode = 'lines+markers') %>%
+  add_trace(y = ~trace_2, name = 'trace 2', mode = 'markers')
+
+ppc4 <- htmltools::div(p4, align='center')
+htmltools::save_html(ppc4, '/tmp/test07.html')
+rawHTML04 <- paste(readLines('/tmp/test07.html'), collapse='\n')
+unlink('/tmp/test07.html')
+airquality_sept <- airquality[which(airquality$Month == 9),]
+airquality_sept$Date <- as.Date(paste(airquality_sept$Month, airquality_sept$Day, 1973, sep = "."), format = "%m.%d.%Y")
+
+p5 <- plot_ly(airquality_sept) %>%
+  add_trace(x = ~Date, y = ~Wind, type = 'bar', name = 'Wind',
+            marker = list(color = '#C9EFF9'),
+            hoverinfo = "text",
+            text = ~paste(Wind, ' mph')) %>%
+  add_trace(x = ~Date, y = ~Temp, type = 'scatter', mode = 'lines', name = 'Temperature', yaxis = 'y2',
+            line = list(color = '#45171D'),
+            hoverinfo = "text",
+            text = ~paste(Temp, '??F')) %>%
+  layout(title = 'New York Wind and Temperature Measurements for September 1973',
+         xaxis = list(title = ""),
+         yaxis = list(side = 'left', title = 'Wind in mph', showgrid = FALSE, zeroline = FALSE),
+         yaxis2 = list(side = 'right', overlaying = "y", title = 'Temperature in degrees F', showgrid = FALSE, zeroline = FALSE))
+
+ppc5 <- htmltools::div(p5, align='center')
+htmltools::save_html(ppc5, '/tmp/test08.html')
+rawHTML05 <- paste(readLines('/tmp/test08.html'), collapse='\n')
+unlink('/tmp/test08.html')
+
+hdr <- c('plot01','plot02','plot03','plot04','plot05')
+rawHTMLs <- c(rawHTML01, rawHTML02, rawHTML03, rawHTML04, rawHTML05)
+df <- data.frame(hdr, rawHTMLs, stringsAsFactors=FALSE)
+df
+```
