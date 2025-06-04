@@ -92,3 +92,27 @@ SELECT *
             100, -- 매 100 Row 마다
            'TitanicDescribe')))
 ```
+
+<br><br>
+단 1개의 컬럼의 출력이 예전에는 안되었지만, 수정했다.
+```
+SELECT * 
+   FROM 
+   table(asEval( 
+   NULL, 
+   'SELECT TO_TIMESTAMP(NULL) start_date
+    FROM dual', 
+   'R_date_single'))
+```
+R_date_single 은 다음이다.
+```
+ function() {
+   one_time <- as.POSIXct("2015-10-19 10:15")
+   emp.data <- data.frame(
+      start_date = c(one_time, one_time, one_time, one_time, one_time),
+      stringsAsFactors = FALSE
+   )
+
+   return (emp.data)
+}
+```
