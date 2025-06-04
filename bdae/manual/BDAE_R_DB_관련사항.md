@@ -1,6 +1,7 @@
 ### BDAE R 모듈 DB 관련 사항
 
 DATETIME 관련이다.  아래 TKIN_TIME, TKOUT_TIME 은 오라클 TimeStamp 데이터 타입이다.<br>
+***asTableEval***
 
 ```
 SELECT * 
@@ -80,7 +81,7 @@ df_des_select_unpivot
 100 건의 데이터의 NA 가 많아서 Infinity 에 가까운 숫자가 나오는데, JAVA 에서 <br>
 처리가 안되어 문자열로 변경한 것 뿐이다.
 
-
+***asRowEval***
 ```
 SELECT VARS, VARIABLE, TO_CHAR(VALUE) AS VALUE FROM (
 SELECT * 
@@ -115,4 +116,67 @@ R_date_single 은 다음이다.
 
    return (emp.data)
 }
+```
+***asGroupEvalParallel***
+```
+SELECT *
+FROM table(asGroupEvalParallel(
+  CURSOR(
+            SELECT EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID,VALUE
+              FROM fdc_trace 
+              WHERE 1=1 
+                AND EQP_ID='EQP-200'
+                AND UNIT_ID='UNIT-02'
+                AND LOT_ID='LOTB-101'
+                AND RECIPE='RECIPE-200'
+                AND PARAM_ID IN ('param_b-36', 'param_b-35')
+            ),
+  CURSOR(
+     SELECT * FROM V_TITANIC
+  ),
+     'V_SIMPLE_RET',
+            'EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID',       
+           'ArrayProcessing'))
+
+-- V_SIMPLE_RET
+CREATE OR REPLACE VIEW "RQUSER"."V_SIMPLE_RET" ("A", "B", "C") AS 
+  SELECT 
+   1 A,
+   CAST('A' as VARCHAR2(20)) B,
+   CAST('A' as VARCHAR2(20)) C
+  FROM dual;
+
+```
+ArrayProcessing 는 다음과 같다.
+```
+function(data, args) {
+
+    library(logr)
+    library(xts)
+    library(quantmod)
+    library(RCurl)
+    library(log4r)
+    library(xts)
+    library(quantmod)
+    library(RCurl)
+    library(RProtoBuf)
+   
+    log_open("/tmp/rlog2.log")
+    log_print("Here is a test log statement")
+    #log_print(class(args1))
+    log_print("data count : ")
+    log_print(nrow(data))
+    log_print(names(data))
+    log_print("args count : ")
+    log_print(nrow(args))
+    log_print(names(args))
+    log_print(args)
+    log_print('========')
+
+
+    resno <- c(101, 102, 103, 104, 105)
+    rname <- c('ANDREA', 'NY', 'YANIS', 'CLEVETH', 'ASHIYA')
+    rage <- c('51', '23', '52', '76', '98')
+    df <- data.frame(resno, rname, rage, stringsAsFactors=FALSE)
+    return (df)
 ```
