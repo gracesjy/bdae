@@ -73,3 +73,22 @@ df_des_select_unpivot = melt(df_des_select,id=c('vars_name'))
 df_des_select_unpivot$variable <- as.character(df_des_select_unpivot$variable)
 df_des_select_unpivot
 ```
+
+다음은 asRowEval 에 대한 예제이다. <br>
+아래 TO_CHAR(VALUE) 부분은 OverFlow 오류가 나기 때문인데, 그 이유는 <br>
+아래 임의로 의미 없는 ? 100 Row 마다 TitanicDescribe 를 수행하게 하였는데, <br>
+100 건의 데이터의 NA 가 많아서 Infinity 에 가까운 숫자가 나오는데, JAVA 에서 <br>
+처리가 안되어 문자열로 변경한 것 뿐이다.
+
+
+```
+SELECT VARS, VARIABLE, TO_CHAR(VALUE) AS VALUE FROM (
+SELECT * 
+      FROM table(asRowEval(
+         	cursor(SELECT * FROM TITANIC),
+         	NULL,
+            'SELECT CAST(''A'' as VARCHAR2(40)) as vars, CAST(''A'' as VARCHAR2(40)) variable,
+            1.0 value FROM dual',
+            100, -- 매 100 Row 마다
+           'TitanicDescribe')))
+```
