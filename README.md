@@ -101,7 +101,7 @@ Like General SQL Queries' results, BDAE's results are the same.
 
 ## Installation (dependencies)
 
-OS : Oracle Enterprise Linux 8 ... tested
+OS : Oracle Enterprise Linux 8, 9 ... tested <br>
      CentOS 7,8 ... tested
 
      Recommended Comments :
