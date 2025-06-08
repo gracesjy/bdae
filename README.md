@@ -84,7 +84,7 @@ because of Oracle Database Query Results(RDBMS).
 ```sql
 SELECT * 
       FROM table(apTableEval(
-         	cursor(select * from CAL_HOUSING),  -- Input Data (Driving Table)
+         	cursor(SELECT * FROM CAL_HOUSING),  -- Input Data (Driving Table)
          	NULL,  -- Secondary Input Data
             'SELECT CAST(''A'' AS VARCHAR2(40)) SUBJECT,  -- Output Format
                   TO_CLOB(NULL) H1, TO_CLOB(NULL) H2, TO_CLOB(NULL) H3 
