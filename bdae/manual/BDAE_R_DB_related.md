@@ -1,6 +1,6 @@
-### BDAE R 모듈 DB 관련 사항
+### BDAE R Module with DB Related
 
-DATETIME 관련이다.  아래 TKIN_TIME, TKOUT_TIME 은 오라클 TimeStamp 데이터 타입이다.<br>
+DATETIME Format.  Columns TKIN_TIME, TKOUT_TIME are TimeStamp Oracle Datatype.<br>
 ***asTableEval***
 
 ```
@@ -12,13 +12,13 @@ SELECT *
           'V_LOTSUM',
           'R_lotsum'))
 
--- 아래는 위의 V_LOTSUM View 이다.
+-- V_LOTSUM is the View of Simplicity.
 CREATE VIEW V_LOTSUM AS SELECT ID, BIN1, BIN2, DURABLE_ID, LOT_ID, TKIN_TIME, TKOUT_TIME FROM LOT_SUM WHERE ROWNUM < 1
 ```
 
-R_lotsum R 모듈은 단순하다.<br>
-오라클 Input Query Data 를 받아서 그대로 다시 던져주는 것이다. <br>
-이건 단순히 Timestamp 를 테스트 하기 위한 것 뿐이다.
+R_lotsum R module is simple.<br>
+just redirect Input Query Data to Output Data <br>
+for just sample.
 
 ```
 # NEW_TYPE
