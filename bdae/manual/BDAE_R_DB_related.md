@@ -36,7 +36,8 @@ df <- data
 df
 ```
 
-다음은 기술통계량을 테스트 하면서 
+for Descriptive Statistics example, <br>
+Titanic Table have null columns and data..
 ```
 SELECT * 
       FROM table(asTableEval(
