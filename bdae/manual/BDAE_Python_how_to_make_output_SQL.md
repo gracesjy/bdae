@@ -1,4 +1,4 @@
-### How to make ${\textsf{\color{green}BDAE's SQL output}}$ using pandas dataframe.
+### How to make <span style="color:blue"> BDAE's SQL output </span> using pandas dataframe.
 > For Example, Output SQL may be complex according to Python return df.
 
 ```
