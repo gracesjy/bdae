@@ -30,3 +30,4 @@ SELECT *
     FROM dual', 
    'R_base64'))
 ```
+![R_Base64.png](../../images/R_Base64.png)
