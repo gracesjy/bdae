@@ -34,12 +34,12 @@ df
 
 ```
 
-### 한글 제거 하자.
+### Removing Hangul
 ```
 not_kor_str = re.sub(r"[ㄱ-ㅣ가-힣]", "", data1).strip()
 ```
 
-### Machine Learning in Action 의 것을 응용해서 적용해 보자
+### Machine Learning in Action - bag of words
 ```
 def bagofwords(vocaList, inputSet):
     returnVec = [0]*len(vocaList)
@@ -64,7 +64,7 @@ b = bagofwords(vocaList2, inputSet)
 print('a : ' + str(a) + ' vs ' + str(b))
 ```
 
-### 아래는 더 응용하여 스펠링이 틀릴 경우를 고려한다.
+### misspell..
 ```
 def bagofwords(vocaList, inputSet):
     returnVec = [0]*len(vocaList)
@@ -100,7 +100,7 @@ print('a : ' + str(a) + ' vs ' + str(b))
 
 
 
-### 실전
+### example.
 ```
 def similarity_idx(lib, mydata):
     similarity = []
