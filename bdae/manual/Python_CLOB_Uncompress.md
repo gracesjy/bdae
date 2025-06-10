@@ -67,5 +67,34 @@ SQL> desc LOT_SUM2;
  MAPPING					    VARCHAR2(40)
 ```
 
+```
+SQL> desc LOT_SUM;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID						    NUMBER
+ BIN1						    NUMBER
+ BIN2						    NUMBER
+ BIN3						    NUMBER
+ BIN4						    NUMBER
+ BIN5						    NUMBER
+ BIN6						    NUMBER
+ BIN7						    NUMBER
+ BIN8						    NUMBER
+ BIN9						    NUMBER
+ DURABLE_ID					    VARCHAR2(40)
+ DURABLE_POS					    NUMBER
+ IN_QTY 					    NUMBER
+ LOT_ID 					    VARCHAR2(40)
+ MACHINE_ID					    VARCHAR2(40)
+ NG_QTY 					    NUMBER
+ OPERATOR					    VARCHAR2(40)
+ OUT_QTY					    NUMBER
+ PROC_OPER_ID					    VARCHAR2(40)
+ PROD_SPEC_ID					    VARCHAR2(40)
+ MAPPING					    CLOB
+ TKIN_TIME					    TIMESTAMP(9)
+ TKOUT_TIME					    TIMESTAMP(9)
+```
+
 
 
