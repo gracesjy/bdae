@@ -1,5 +1,6 @@
 ## ${\textsf{\color{magenta}Model UnSerialize : BLOB Column}}$
 
+
 This is a method of training a model, saving it as a file in a specific table, 
 and reading it in real time to use it for inference.
 
