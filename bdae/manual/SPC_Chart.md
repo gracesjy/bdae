@@ -212,4 +212,4 @@ FROM table(apEval(
    'XML',
    'SPC_Chart:basic'))
 ```
-
+![SPC.png](../../images/SPC.png)
