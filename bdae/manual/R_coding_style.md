@@ -74,3 +74,4 @@ SELECT *
            FROM dual', 
           'Kospi_NEW_TYPE'))
 ```
+![KOSPI.png](../../images/KOSPI.png)
