@@ -186,3 +186,4 @@ FROM table(apEval(
    'SELECT CAST(''AA'' AS VARCHAR2(40)) Algorithm, TO_CLOB(NULL) Silluette FROM dual',
    'Clustering:visual_silluette'))
 ```
+![Python_Base64.png](../../images/Python_Base64.png)
