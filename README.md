@@ -5,7 +5,7 @@ Because it implements the Oracle Data Cartridge Interface, it is not limited to 
 
 (contact : gracesjy@naver.com)
 
-![Oracle_In_Database.png](./images/Oracle_In_Database.png)
+![BDAE_ARCH.png](./images/BDAE_ARCH.png)
 
 ## How To run (3 Steps to Run !)
 1. Register your python model in Oracle Database's table or PYTHONPATH directory.
