@@ -10,8 +10,8 @@ Because it implements the Oracle Data Cartridge Interface, it is not limited to 
 This can improve performance by reducing the number of DB calls while writing backend programs in Python and R.<br>
 ***Note)*** <br>
 1.    BDAE was developed with inspiration from ***Oracle R Enterprise*** and was created solely using Oracle manuals.<br>
-      However, it took a lot of time to develop through trial and error due to the lack of examples.<br><br>
-2.    BDAE enables your Python/R modules to run with parallelism like ***Oracle R Enterprise***.
+      However, it took a lot of time to develop through trial and error due to the lack of examples.<br>
+2.    BDAE enables your Python/R modules to run with parallelism like ***Oracle R Enterprise***. <br>
 3.    But, BDAE has no alogithm unlike **Oracle R Enterprise**, just Tool for AI (Machine Learning).
 
 ## How To run (3 Steps to Run !)
