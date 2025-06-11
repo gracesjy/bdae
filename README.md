@@ -7,6 +7,8 @@ Because it implements the Oracle Data Cartridge Interface, it is not limited to 
 
 ![BDAE_ARCH.png](./images/BDAE_ARCH.png)
 
+This can improve performance by reducing the number of DB calls while writing backend programs in Python and R.
+
 ## How To run (3 Steps to Run !)
 1. Register your python model in Oracle Database's table or PYTHONPATH directory.
 2. Register the SQL to mix source data and your model.
