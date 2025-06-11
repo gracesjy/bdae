@@ -9,6 +9,7 @@ Because it implements the Oracle Data Cartridge Interface, it is not limited to 
 
 This can improve performance by reducing the number of DB calls while writing backend programs in Python and R.
 
+
 ## How To run (3 Steps to Run !)
 1. Register your python model in Oracle Database's table or PYTHONPATH directory.
 2. Register the SQL to mix source data and your model.
@@ -103,10 +104,14 @@ Like General SQL Queries' results, BDAE's results are the same.
 
 ## Installation (dependencies)
 
-Oracle Database is provided as Docker, and installation of Python and R with Anaconda has also become very convenient.<br><br>
+Oracle Database is provided as Docker, and installation of Python and R with Anaconda has also become very convenient.<br>
+Therefore, BDAE installation is very quick and can be installed within minutes.<br><br>
+This Docker can be provided in tar file format and can be imported using methods such as docker load -i bdae_oracle.tar.<br><br>
 
 ![BDAE_DOCKER.png](./images/BDAE_DOCKER.png)
 
+
+This installation is a summary of the installation that includes running Python on a GPU.<br><br>
 
 OS : Oracle Enterprise Linux 6, 8, 9, CentOS 7,8 ... tested
 
