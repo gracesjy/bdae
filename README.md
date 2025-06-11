@@ -103,7 +103,8 @@ Like General SQL Queries' results, BDAE's results are the same.
 
 ## Installation (dependencies)
 
-Oracle Database is provided as Docker, and installation of Python and R with Anaconda has also become very convenient.<br>
+Oracle Database is provided as Docker, and installation of Python and R with Anaconda has also become very convenient.<br><br>
+
 ![BDAE_DOCKER.png](./images/BDAE_DOCKER.png)
 
 
