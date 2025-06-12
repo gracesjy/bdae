@@ -1,4 +1,6 @@
 ## R 기초
+https://github.com/PacktPublishing/Machine-Learning-with-R-Fourth-Edition
+
 data.frame 변환 예제들을 최대한 수렴하기 위해서 적는다.
 ```
 # create sample data frame
