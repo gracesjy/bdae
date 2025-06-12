@@ -98,6 +98,7 @@ http://varianceexplained.org/r/broom-intro/
 ```
 
 ### list
+```
 > names(l1)
 > for (p in l1) {
   print(p)
@@ -106,3 +107,5 @@ http://varianceexplained.org/r/broom-intro/
   print(as.data.frame(l1[[i]]))
   print(l1[[i]])
 }
+
+```
