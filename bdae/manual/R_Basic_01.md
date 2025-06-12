@@ -96,3 +96,13 @@ http://varianceexplained.org/r/broom-intro/
 6 BldgGrade      106117.      2396.        44.3   0        
 
 ```
+
+### list
+> names(l1)
+> for (p in l1) {
+  print(p)
+}
+> for (i in 1:length(l1)) {
+  print(as.data.frame(l1[[i]]))
+  print(l1[[i]])
+}
