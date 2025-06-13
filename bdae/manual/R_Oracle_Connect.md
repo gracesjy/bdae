@@ -43,3 +43,39 @@ connect.string <- paste(
 conn <- dbConnect(driv, username="rquser", password="nebula", dbname=connect.string)
 df <- dbGetQuery(conn,"SELECT * FROM FDC_TRACE WHERE ROWNUM < 10")
 ```
+
+## R data.frame into Oracle Database
+```
+library(ROracle)
+driv <- dbDriver("Oracle")
+connect.string <- paste(
+  "(DESCRIPTION=",
+  "(ADDRESS=(PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521))",
+  "(CONNECT_DATA=(SERVER = DEDICATED)",
+  "(SERVICE_NAME = FREE)))", sep = "")
+conn <- dbConnect(driv, username="rquser", password="nebula", dbname=connect.string)
+df_read <- dbGetQuery(conn,"SELECT * FROM FDC_TRACE WHERE ROWNUM < 10")
+df_read
+
+## make data.frame from csv file or something.
+df <-  read.csv('wisc_bc_data.csv')
+names(df)
+ [1] "id"                "diagnosis"         "radius_mean"      
+ [4] "texture_mean"      "perimeter_mean"    "area_mean"        
+ [7] "smoothness_mean"   "compactness_mean"  "concavity_mean"   
+[10] "points_mean"       "symmetry_mean"     "dimension_mean"   
+[13] "radius_se"         "texture_se"        "perimeter_se"     
+[16] "area_se"           "smoothness_se"     "compactness_se"   
+[19] "concavity_se"      "points_se"         "symmetry_se"      
+[22] "dimension_se"      "radius_worst"      "texture_worst"    
+[25] "perimeter_worst"   "area_worst"        "smoothness_worst" 
+[28] "compactness_worst" "concavity_worst"   "points_worst"     
+[31] "symmetry_worst"    "dimension_worst"  
+
+dbWriteTable(conn, "wisc_bc_data", df) 
+[1] TRUE
+
+dbCommit(conn)
+[1] TRUE
+> quit()
+```
