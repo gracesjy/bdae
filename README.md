@@ -116,8 +116,10 @@ This Docker can be provided in tar file format and can be imported using methods
 
 ![BDAE_DOCKER.png](./images/BDAE_DOCKER.png)
 
+Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 
-This installation is a summary of the installation that includes running Python on a GPU.<br><br>
+This installation is a summary of the installation that includes running Python on a GPU.<br>
+Do not consider seriously. <br>
 
 OS : Oracle Enterprise Linux 6, 8, 9, CentOS 7,8 ... tested
 
