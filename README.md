@@ -4,15 +4,15 @@
 Because it implements the ***Oracle Data Cartridge Interface***, it is not limited to a specific schema and supports ***Dynamic SQL***.
 (contact : gracesjy@naver.com)<br>
 
-***BDAE*** is built on Oracle In-Database technology and has platform features that enable ***Oracle Database(TM)***
+***It*** is built on Oracle In-Database technology and has platform features that enable ***Oracle Database(TM)***
 to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment
 without the overhead of data movement during learning and inference.
 
 ![Oracle_In_Database.png](./images/Oracle_In_Database.png)
 
-Below Image shows the operating location of BDAE(TM) in the form of Oracle In-Database.
+Below Image shows the operating location of BDAE in the form of Oracle In-Database.
 Parallel distributed processing is a feature of Oracle In-Database, and analysts do not need to consider it in their modules, which increases the reusability of logic.
-In addition, the fact that it can be integrated with various analysis engines can be seen as an advantage of BDAE(TM) . 
+In addition, the fact that it can be integrated with various analysis engines can be seen as an advantage of BDAE. 
 
 ![BDAE_ARCH.png](./images/BDAE_ARCH.png)
 
@@ -26,9 +26,9 @@ This can improve performance by reducing the number of DB calls while writing ba
       Algorithms are not included because they are constantly evolving and changing. This is also because analysts can do better. <br>
 
 ## How To run (3 Steps to Run !)
-1. Register your python model in Oracle Database's table or save file in PYTHONPATH directory.
+1. Register your Python/R model in the designated Oracle Database's table or save file in PYTHONPATH directory.
 2. Register the SQL to bind source data and your model.
-3. Run the SQL and get the results.
+3. Run the SQL and get the results.  you can get results any tools capable of connecting Oracle Database.
 
 
 ### Step-1) Make Your Python module (ML/DL/ ...)
