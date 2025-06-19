@@ -4,13 +4,15 @@
 Because it implements the ***Oracle Data Cartridge Interface***, it is not limited to a specific schema and supports ***Dynamic SQL***.
 (contact : gracesjy@naver.com)<br>
 
-***BDAE*** is built on Oracle In-Database technology and has platform features that enable ***Oracle Database(TM)***<br>
-to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment <br>
+***BDAE*** is built on Oracle In-Database technology and has platform features that enable ***Oracle Database(TM)***
+to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment
 without the overhead of data movement during learning and inference.
 
 ![Oracle_In_Database.png](./images/Oracle_In_Database.png)
 
-
+Below Image shows the operating location of BDAE(TM) in the form of Oracle In-Database.
+Parallel distributed processing is a feature of Oracle In-Database, and analysts do not need to consider it in their modules, which increases the reusability of logic.
+In addition, the fact that it can be integrated with various analysis engines can be seen as an advantage of BDAE(TM) . 
 
 ![BDAE_ARCH.png](./images/BDAE_ARCH.png)
 
