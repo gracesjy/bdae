@@ -17,8 +17,8 @@ This can improve performance by reducing the number of DB calls while writing ba
       Algorithms are not included because they are constantly evolving and changing. This is also because analysts can do better. <br>
 
 ## How To run (3 Steps to Run !)
-1. Register your python model in Oracle Database's table or PYTHONPATH directory.
-2. Register the SQL to mix source data and your model.
+1. Register your python model in Oracle Database's table or save file in PYTHONPATH directory.
+2. Register the SQL to bind source data and your model.
 3. Run the SQL and get the results.
 
 
@@ -118,125 +118,7 @@ This Docker can be provided in tar file format and can be imported using methods
 
 Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 
-This installation is a summary of the installation that includes running Python on a GPU.<br>
-Do not consider seriously. <br>
 
-OS : Oracle Enterprise Linux 6, 8, 9, CentOS 7,8 ... tested
-
-     Recommended Comments :
-      There is no OS that is a major problem, but the most important thing is the stability of the Oracle Database
-      and the ease of installation of python and R packages that depend on the customer's algorithm.
-
-      When using a GPU, the CUDA-related libraries and SDK provided by NVIDIA must be properly installed.
-
-Oracle Database version : 10, 11g, 12c, 19c, 23c ... tested
-
-     Recommended Comments :
-      Since it uses the most basic API provided by Oracle Database, it is not significantly related to the version.
-
-For Python Module Best Practise ( tested example ) :
-
-     Step-1) Oracle Linux 8 installation
-     Step-2) dnf update
-     Step-3) GPU options
-             Download nvidia graphic driver (NVIDIA-Linux-x86_64-525.85.05.run)
-             dnf install kernel-uek-devel make -y
-             dnf install gcc-toolset-11
-
-             reboot ..
-             scl enable gcc-toolset-11 bash
-             sh ./NVIDIA-Linux-x86_64-525.85.05.run
-             reboot ..
-             nvidia-smi test (see if your GPU detected)
-             dnf config-manager --add-repo 
-             https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda- rhel8.repo
-             dnf  clean all
-             dnf search cuda
-             dnf install cuda-12-4 (just example)
-             echo 'export PATH=/usr/local/cuda-12.4bin${PATH:+:${PATH}}' >> $HOME/.bashrc
-             reboot ..
-             download cudnn-archive according to cuda version.
-             cp cudnn-linux-x86_64-8.8.1.3_cuda12-archive/include/cudnn*.h /usr/local/cuda/include
-             cp cudnn-linux-x86_64-8.8.1.3_cuda12-archive/lib/libcudnn* /usr/local/cuda/lib64
-
-     Step-4) Download anaconda and setup python, python packages you want
-
-             Recommended Comments :
-               After installing it on the development system, just copy it to the production system.
-     
-             conda create -n tf39 python=3.9.* (you want)
-             conda activate tf39
-             pip install nvidia-cudnn-cu12 (you want)
-             pip install tensorflow-gpu==2.5.0 (you want)
-             pip install jupyter
-             pip install chardet
-             ...
-
-      Step-5) Big Data Analysis Enabler Setup
-             There is one dynamic library for each python and R module.
-             
-BDAE Installation
-   1) Properly locate BDAE Python module (bdae/lib/libODCI_Python_AnyDataSet.so)
-   2) login Oracle account
-      ```sql
-      CREATE LIBRARY PYTHON_ANYDATASET IS '/home/oracle/bdae/libODCI_Python_AnyDataSet.so';
-      ```
-
-   3) register Oracle Type
-      run bdae/pkg/*.sql (APEVAL.sql, APROWEVAL.sql, APTABLEEVAL.sql, APGRPEVAL.sql)
-   
-   4) register Oracle package for your own schema (just example)
-      run bdae/pkg/*.sql (FDC_TRACEPKG.sql)
-   
-   5) register Oracle Table functions for your own purpose (just example)
-      
-      ```sql
-      CREATE OR REPLACE FUNCTION apEval(inp_cur IN SYS_REFCURSOR, out_qry VARCHAR2,
-                       exp_nam VARCHAR2)
-      RETURN SYS.AnyDataSet
-      PIPELINED USING RQUSER.APEVALIMPL;
-
-      CREATE OR REPLACE FUNCTION apRowEval(inp_cur SYS_REFCURSOR,par_cur SYS_REFCURSOR,
-                          out_qry VARCHAR2, row_num NUMBER,  exp_nam VARCHAR2)
-      RETURN SYS.AnyDataSet PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY ANY)
-      USING RQUSER.APROWEVALIMPL;
-
-      CREATE OR REPLACE FUNCTION apTableEval(inp_cur SYS_REFCURSOR,
-                            par_cur SYS_REFCURSOR,
-                            out_qry VARCHAR2, exp_nam VARCHAR2)
-      RETURN SYS.AnyDataSet
-      PIPELINED USING RQUSER.APTBLEVALIMPL;
-
-      CREATE OR REPLACE FUNCTION apGroupEvalParallel(
-                          inp_cur IN fdc_tracePkg.cur, par_cur SYS_REFCURSOR,
-                          out_qry VARCHAR2,  grp_col VARCHAR2, exp_nam VARCHAR2)
-      RETURN SYS.AnyDataSet PIPELINED PARALLEL_ENABLE (PARTITION inp_cur BY HASH(EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID))
-      CLUSTER inp_cur BY (EQP_ID,UNIT_ID,LOT_ID,WAFER_ID,RECIPE,PARAM_ID)
-      USING RQUSER.APGRPEVALIMPL;
-      ```
-    
-## Very Important Final Setup for BDAE and Oracle Database
-
-    BDAE is based on the Oracle Data Cartridge Interface and is implemented as a C library. 
-    Additionally, this library is called as an external procedure. 
-    Therefore, the following configuration is very important.
-
-    edit $ORACLE_HOME/hs/admin/extproc.ora as your environments.
-
-```bash
-
-SET EXTPROC_DLLS=ANY
-SET BDAE_LOB_SIZE=2000000
-## As your anaconda environment, you can choose your faverate python version and related packages !!
-SET PYTHONPATH=/home/oracle/anaconda3/envs/tf39/lib/python39.zip
-               :/home/oracle/anaconda3/envs/tf39/lib/python3.9
-               :/home/oracle/anaconda3/envs/tf39/lib/python3.9/lib-dynload
-               :/home/oracle/anaconda3/envs/tf39/lib/python3.9/site-packages
-               :/home/oracle/anaconda3/envs/tf39/lib/tcl8.6
-
-SET LD_PRELOAD=/home/oracle/anaconda3/envs/tf39/lib/libpython3.9.so.1.0
-SET MAX_MEMORY=2000000
-```
 
 
    
