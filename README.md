@@ -1,9 +1,16 @@
-# BDAE (Big Data Analysis Enabler)
+# BDAE (Big Data Analysis Enabler), AI Enabler for Oracle Database
 
 ***Big Data Analysis Enabler(BDAE)*** enables parallel processing of Python and R without data movement based on Oracle In-Database.
 Because it implements the ***Oracle Data Cartridge Interface***, it is not limited to a specific schema and supports ***Dynamic SQL***.
+(contact : gracesjy@naver.com)<br>
 
-(contact : gracesjy@naver.com)
+***BDAE*** is built on Oracle In-Database technology and has platform features that enable ***Oracle Database(TM)***<br>
+to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment <br>
+without the overhead of data movement during learning and inference.
+
+![Oracle_In_Database.png](./images/Oracle_In_database.png)
+
+
 
 ![BDAE_ARCH.png](./images/BDAE_ARCH.png)
 
@@ -22,7 +29,7 @@ This can improve performance by reducing the number of DB calls while writing ba
 3. Run the SQL and get the results.
 
 
-## Step-1) Make Your Python module (ML/DL/ ...)
+### Step-1) Make Your Python module (ML/DL/ ...)
 
 You must make entry function of module, for example describe().
 others are helper functions. 
@@ -83,7 +90,7 @@ def describe(housing):
 
 ```
 
-## Step-2) Make Your SQL to run
+### Step-2) Make Your SQL to run
 
 The input (Oracle Database's Table or View or Queries) is delivered 
 pandas DataFrame format to your python entry point function,
@@ -101,7 +108,7 @@ SELECT *
            'CAL_HOUSING_EDM:describe'))  -- Python Module for calling
 ```
 
-## Step-3) Run above SQL and get Results
+### Step-3) Run above SQL and get Results
 Like General SQL Queries' results, BDAE's results are the same.
 (Any Applications you can develope using SQLs)
 ![ResultsEDM.png](./images/ResultsEDM.png)
