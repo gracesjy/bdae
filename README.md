@@ -29,7 +29,7 @@ This can improve performance by reducing the number of DB calls while writing ba
 1. Register your Python/R model in the designated Oracle Database's table or save file in PYTHONPATH directory.
 2. Register the SQL to bind source data and your model.
 3. Run the SQL and get the results.  you can get results any tools capable of connecting Oracle Database.
-
+***Note*** Using BDAE Web, you can register Python/R and SQLs with Editor. (just copy & paste from Jupyter Notebook or Something)
 
 ### Step-1) Make Your Python module (ML/DL/ ...)
 
