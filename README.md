@@ -8,7 +8,7 @@ Because it implements the ***Oracle Data Cartridge Interface***, it is not limit
 to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment <br>
 without the overhead of data movement during learning and inference.
 
-![Oracle_In_Database.png](./images/Oracle_In_database.png)
+![Oracle_In_Database.png](./images/Oracle_In_Database.png)
 
 
 
