@@ -1,7 +1,8 @@
-## R 오라클 연결 방법
+## R Oracle Connection 
 
-다른 것들과 동일하지만, 먼저 TNS 를 사용하는 법<br>
-먼저 DBI, ROracle 설치할 것
+First of all, install.packages(c("ROracle","DBI"))
+
+### 1) Using TNS
 ```
 Sys.setenv("ORACLE_HOME"="/u01/app/oracle/product/12.2.0.1/db_1")
 library(ROracle)
@@ -27,7 +28,7 @@ cur <- dbSendQuery(conn,
 df <- dbFetch(cur)
 ```
 
-두번째는 thin client 연결 방법
+### Using Thin Client
 ```
 library(DBI)
 library(ROracle)
@@ -44,7 +45,7 @@ conn <- dbConnect(driv, username="rquser", password="nebula", dbname=connect.str
 df <- dbGetQuery(conn,"SELECT * FROM FDC_TRACE WHERE ROWNUM < 10")
 ```
 
-## R data.frame into Oracle Database
+### R data.frame into Oracle Database
 ```
 library(ROracle)
 driv <- dbDriver("Oracle")
