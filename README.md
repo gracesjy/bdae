@@ -130,6 +130,8 @@ This Docker can be provided in tar file format and can be imported using methods
 
 <img src="https://github.com/gracesjy/bdae/blob/main/images/BDAE_DOCKER.png" width="80%" height="80%">
 
+![image](https://github.com/user-attachments/assets/7c392db0-305f-4486-a70d-014029bbdf38)
+
 Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 
 ## Summary (Manual)
