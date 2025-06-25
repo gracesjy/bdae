@@ -127,6 +127,8 @@ This Docker can be provided in tar file format and can be imported using methods
 
 Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 
+## Summary (Manual)
+https://github.com/gracesjy/bdae/blob/main/BDAE_Manual.pdf
 
 
 
