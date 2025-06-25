@@ -128,9 +128,7 @@ Oracle Database is provided as Docker, and installation of Python and R with Ana
 Therefore, BDAE installation is very quick and can be installed within minutes.<br><br>
 This Docker can be provided in tar file format and can be imported using methods such as docker load -i bdae_oracle.tar.<br><br>
 
-<img src="https://github.com/gracesjy/bdae/blob/main/images/BDAE_DOCKER.png" width="80%" height="80%">
-
-![image](https://github.com/user-attachments/assets/7c392db0-305f-4486-a70d-014029bbdf38)
+<img src="https://github.com/gracesjy/bdae/blob/main/images/BDAE_DOCKER.png" width="90%" height="90%">
 
 Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 
