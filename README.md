@@ -8,13 +8,14 @@ Because it implements the ***Oracle Data Cartridge Interface***, it is not limit
 to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment
 without the overhead of data movement during learning and inference.
 
-![Oracle_In_Database.png](./images/Oracle_In_Database.png)
+<img src="https://github.com/gracesjy/bdae/blob/main/images/Oracle_In_Database.png" width="50%" height="50%">
 
 Below Image shows the operating location of BDAE in the form of Oracle In-Database.
 Parallel distributed processing is a feature of Oracle In-Database, and analysts do not need to consider it in their modules, which increases the reusability of logic.
 In addition, the fact that it can be integrated with various analysis engines can be seen as an advantage of BDAE. 
 
-![BDAE_ARCH.png](./images/BDAE_ARCH.png)
+<img src="https://github.com/gracesjy/bdae/blob/main/images/BDAE_ARCH.png" width="50%" height="50%">
+
 
 This can improve performance by reducing the number of DB calls while writing backend programs in Python and R.<br>
 ***Note)*** <br>
@@ -113,7 +114,8 @@ SELECT *
 ### Step-3) Run above SQL and get Results
 Like General SQL Queries' results, BDAE's results are the same.
 (Any Applications you can develope using SQLs)
-![ResultsEDM.png](./images/ResultsEDM.png)
+
+<img src="https://github.com/gracesjy/bdae/blob/main/images/ResultsEDM.png" width="90%" height="90%">
 
 
 
@@ -123,7 +125,7 @@ Oracle Database is provided as Docker, and installation of Python and R with Ana
 Therefore, BDAE installation is very quick and can be installed within minutes.<br><br>
 This Docker can be provided in tar file format and can be imported using methods such as docker load -i bdae_oracle.tar.<br><br>
 
-![BDAE_DOCKER.png](./images/BDAE_DOCKER.png)
+<img src="https://github.com/gracesjy/bdae/blob/main/images/BDAE_DOCKER.png" width="80%" height="80%">
 
 Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 
