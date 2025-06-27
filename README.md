@@ -9,9 +9,10 @@ so a separate application server is unnecessary, and all logic (including the ba
 
 ***BDAE*** can be used for the following purposes:
 1. AI for Training and Inference (Real-Time)
-2. Integration BI or any solutions capable of using Oracle Database
-3. Smart Factory, Financial, Health, .., no restrictions.
-4. . . .
+2. Powerful ETL jobs, Fundamental data perspective work for AI tasks
+3. Integration BI or any solutions capable of using Oracle Database
+4. Smart Factory, Financial, Health, .., no restrictions.
+5. ...
 
 ***It*** is built on Oracle In-Database technology and has platform features that enable ***Oracle Database(TM)***
 to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment
