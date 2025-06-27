@@ -7,6 +7,12 @@ Because it implements the ***Oracle Data Cartridge Interface***, it is not limit
 ***BDAE*** is executed as a SQL statement and the results are retrieved like the results of a general SQL statement, 
 so a separate application server is unnecessary, and all logic (including the backend) can be implemented in Python and R. 
 
+***BDAE*** can be used for the following purposes:
+1. AI for Training and Inference (Real-Time)
+2. Integration BI or any solutions capable of using Oracle Database
+3. Smart Factory, Financial, Health, .., no restrictions.
+4. . . .
+
 ***It*** is built on Oracle In-Database technology and has platform features that enable ***Oracle Database(TM)***
 to be used not only as a simple storage for general AI tasks, but also as a non-stop operating environment
 without the overhead of data movement during learning and inference.
