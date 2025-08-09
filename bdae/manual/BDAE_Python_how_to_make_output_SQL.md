@@ -1,5 +1,6 @@
 ### How to make <span style="color:blue"> BDAE's SQL output </span> using pandas dataframe.
 > For Example, Output SQL may be complex according to Python return df.
+> Hum..
 
 ```
 SELECT /*+ parallel(5) */*
