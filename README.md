@@ -149,7 +149,7 @@ Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 https://github.com/gracesjy/bdae/blob/main/BDAE_Manual.pdf
 
 
-
+#### For various reasons, Big Data Analysis Enabler is not registered as a trademark.
    
      
 
