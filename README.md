@@ -148,6 +148,22 @@ Please send me the mail if you want to test. (gracesjy@naver.com)<br>
 ## Summary (Manual)
 https://github.com/gracesjy/bdae/blob/main/BDAE_Manual.pdf
 
+## GCP Big Query
+Comparing it to GCP BigQuery, the similarities with BigQuery include that both input and output data are in table format and that parallel processing is possible, while the differences are that BDAE allows analysts to directly input algorithms and MLOps like AutoML, and that large-scale data performance tuning can be left to Oracle Database.
+```
+SELECT
+    name,
+    SUM(number) as total_babies
+  FROM
+    `bigquery-public-data.usa_names.usa_1910_2013`
+  WHERE
+    year >= 2014
+  GROUP BY
+    name
+  ORDER BY
+    total_babies DESC
+  LIMIT 10;
+```
 
 #### For various reasons, Big Data Analysis Enabler is not registered as a trademark.
    
