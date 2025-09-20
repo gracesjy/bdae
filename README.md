@@ -151,29 +151,36 @@ https://github.com/gracesjy/bdae/blob/main/BDAE_Manual.pdf
 ## GCP Big Query
 Comparing it to GCP BigQuery, the similarities with BigQuery include that both input and output data are in table format and that parallel processing is possible, while the differences are that BDAE allows analysts to directly input algorithms and MLOps like AutoML, and that large-scale data performance tuning can be left to Oracle Database.
 ```
+CREATE OR REPLACE MODEL
+  `bigquery-public-data.london_bicycles.bikeshare_model`
+OPTIONS
+  (model_type='LINEAR_REG') AS
 SELECT
-    name,
-    SUM(number) as total_babies
-  FROM
-    `bigquery-public-data.usa_names.usa_1910_2013`
-  WHERE
-    year >= 2014
-  GROUP BY
-    name
-  ORDER BY
-    total_babies DESC
-  LIMIT 10;
+  start_station_name,
+  end_station_name,
+  duration,
+  start_hour
+FROM
+  `bigquery-public-data.london_bicycles.cycle_hire`
+WHERE
+  start_station_name IS NOT NULL
+  AND end_station_name IS NOT NULL
+  AND duration IS NOT NULL
+  AND start_hour IS NOT NULL
+  AND RAND() < 0.01 -- 데이터 양이 너무 많아 샘플링함
 ```
 
 ```
+INSERT INTO MODEL_TABLE
 SELECT * 
       FROM table(apTableEval(
-         	cursor(SELECT * FROM bigquery-public-data.usa_names.usa_1910_2013),  -- Input Data (Driving Table)
-         	NULL,  -- Secondary Input Data
+         	cursor(SELECT * FROM bigquery-public-data.london_bicycles.cycle_hire),  -- Input Data (Driving Table)
+         	NULL,  -- Secondary Input Data or Hyperparameters 
             'SELECT CAST(NULL AS VARCHAR2(40)) name,  -- Output Format
-                    1.0 total_babies
+                    CAST(NULL AS CLOUB) model,
+                    1.0 accuracy, ...
              FROM DUAL',
-           'YourAlgorithm:TopTen'))  -- Python Module for calling
+           'YourAlgorithm:LinearReg'))  -- Python Module or R Module
 ```
 
 #### For various reasons, Big Data Analysis Enabler is not registered as a trademark.
