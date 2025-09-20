@@ -165,6 +165,17 @@ SELECT
   LIMIT 10;
 ```
 
+```
+SELECT * 
+      FROM table(apTableEval(
+         	cursor(SELECT * FROM bigquery-public-data.usa_names.usa_1910_2013),  -- Input Data (Driving Table)
+         	NULL,  -- Secondary Input Data
+            'SELECT CAST(NULL AS VARCHAR2(40)) name,  -- Output Format
+                    1.0 total_babies
+             FROM DUAL',
+           'YourAlgorithm:TopTen'))  -- Python Module for calling
+```
+
 #### For various reasons, Big Data Analysis Enabler is not registered as a trademark.
    
      
