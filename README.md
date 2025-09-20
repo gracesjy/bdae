@@ -120,11 +120,12 @@ SELECT *
              FROM DUAL',
            'CAL_HOUSING_EDM:describe'))  -- Python Module for calling
 ```
+R Module function ***asTableEval()***, not ***apTableEval()***
 ```sql
 SELECT * 
       FROM table(asTableEval(
          	cursor(SELECT * FROM CAL_HOUSING),  -- Input Data (Driving Table)
-         	NULL,  -- Secondary Input Data or Hyperparameters for your Python Module
+         	NULL,  -- Secondary Input Data or Hyperparameters for your R Module
             'SELECT CAST(''A'' AS VARCHAR2(40)) SUBJECT,  -- Output Format
                   TO_CLOB(NULL) H1, TO_CLOB(NULL) H2, TO_CLOB(NULL) H3 
              FROM DUAL',
