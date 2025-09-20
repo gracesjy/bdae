@@ -114,12 +114,24 @@ because of Oracle Database Query Results(RDBMS).
 SELECT * 
       FROM table(apTableEval(
          	cursor(SELECT * FROM CAL_HOUSING),  -- Input Data (Driving Table)
-         	NULL,  -- Secondary Input Data
+         	NULL,  -- Secondary Input Data or Hyperparameters for your Python Module
             'SELECT CAST(''A'' AS VARCHAR2(40)) SUBJECT,  -- Output Format
                   TO_CLOB(NULL) H1, TO_CLOB(NULL) H2, TO_CLOB(NULL) H3 
              FROM DUAL',
            'CAL_HOUSING_EDM:describe'))  -- Python Module for calling
 ```
+```sql
+SELECT * 
+      FROM table(asTableEval(
+         	cursor(SELECT * FROM CAL_HOUSING),  -- Input Data (Driving Table)
+         	NULL,  -- Secondary Input Data or Hyperparameters for your Python Module
+            'SELECT CAST(''A'' AS VARCHAR2(40)) SUBJECT,  -- Output Format
+                  TO_CLOB(NULL) H1, TO_CLOB(NULL) H2, TO_CLOB(NULL) H3 
+             FROM DUAL',
+           'CAL_HOUSING_EDM_describe'))  -- R Module for calling
+```
+
+
 
 ### Step-3) Run above SQL and get Results
 Like General SQL Queries' results, BDAE's results are the same.
