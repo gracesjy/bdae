@@ -151,7 +151,7 @@ This Docker can be provided in tar file format and can be imported using methods
 If you have an NVIDIA Graphic Card and it is properly set up, you can use the GPU by loading the Docker image above and then giving the following options when running it.
 
 ```
-docker run -d --ipc=host --name oracle_bdae_gpu --gpus all -p 1521:1521 -p 5500:5500 -p 8888:8888 oracle_bdae:0.7
+docker run -d --init --ipc=host --name oracle_bdae_gpu --gpus all -p 1521:1521 -p 5500:5500 -p 8888:8888 oracle_bdae:0.7
 ```
 
 <img src="https://github.com/gracesjy/bdae/blob/main/images/BDAE_DOCKER.png" width="90%" height="90%">
