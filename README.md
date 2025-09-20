@@ -169,7 +169,7 @@ WHERE
   AND start_hour IS NOT NULL
   AND RAND() < 0.01 -- 데이터 양이 너무 많아 샘플링함
 ```
-
+If you change the BigQuery above to BDAE, it will look like this. Instead of creating tables haphazardly every time, you can consistently store F1, accuracy, and other metrics in the model table. Of course, analysts can create or provide these details.
 ```
 INSERT INTO MODEL_TABLE
 SELECT * 
