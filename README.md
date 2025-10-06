@@ -35,7 +35,28 @@ This can improve performance by reducing the number of DB calls while writing ba
 2.    ***BDAE*** enables your Python/R modules to run with parallelism like ***Oracle R Enterprise***. <br>
 3.    But, ***BDAE*** has no alogithm unlike **Oracle R Enterprise**, just Tool for AI (Machine Learning). <br>
       Algorithms are not included because they are constantly evolving and changing. This is also because analysts can do better. <br>
+## ***BDAE*** Table Functions
+BDAE has special SQL statements related to Oracle In-Database and provides table functions for four types of analysis for Python and R respectively.<br>
 
+1. apEval(SQL_args, SQL_output, R_script_name/PythonModuleName:start_function)
+2. apTableEval(SQL_input, SQL_args, SQL_output, R_script_name/PythonModuleName:start_function)
+3. apRowEval(SQL_input, SQL_args, SQL_output, No_of_Rows, R_script_name/PythonModuleName:start_function)
+4. apGroupEval(SQL_input, SQL_args, SQL_output, GroupColumns, R_script_name/PythonModuleName:start_function)
+
+apEval() is for simple testing without input data, while the rest all have input data. Each can be used for its own purpose, and the R and Python analysis modules are reusable. <br>
+The most commonly used ones are apTableEval() and apGroupEval(), and the difference between the two is that apGroupEval has Group By built-in, allowing for parallel distributed processing. <br>
+
+1. SQL_input : is a SQL statement describing the data to be analyzed and must be independently executed and queried.
+2. SQL_args  : can represent hyperparameters or reference data for the analysis module. For example, hyperparameters can be expressed as follows: <br>
+```
+      select 0.000001 learning_rate, 100 epochs from dual
+```
+3. SQL_output : is the part where you enter the SQL statement for output or the View or Table name, and the type and number of columns must match the data.frame or pandas DataFrame in the return part of the R or Python analysis module.
+
+4. No_of_Rows : means that the SQL_input data is split into each defined number and the analysis module is called and executed.
+5. R_script_name/PythonModuleName:start_function : is where you enter the names of the registered R and Python modules you want to analyze. They are all managed in separate tables, and unlike R, Python is slightly different in the parts where you write the module name and the function name to start execution.
+6. GroupColumns : applies only to apGroupEval() and is equivalent to inserting Group By in a SQL statement into the apTableEval() function. In other words, apGroupEval() defines that parallel distributed processing is performed based on these columns, and each column name can be written as col1, col2, col3, .. Therefore, analysts do not need to consider parallel distributed processing.
+   
 ## How To run (3 Steps to Run !)
 1. Register your Python/R model in the designated Oracle Database's table or save file in PYTHONPATH directory.
 2. Register the SQL to bind source data and your model.
