@@ -147,5 +147,3 @@ SELECT *
 
 3. Results
 
-W.
-<img src="../images/kospi.jpg">
