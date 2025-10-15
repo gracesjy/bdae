@@ -50,3 +50,101 @@ SELECT A, case when B=-binary_double_infinity then '-Infinity'
 |4  |         |
 |5	|5.34     |
 
+### Data Type
+1. Save below R code as R_date.
+
+In case of DateTime, use followings
+    
+    date_time <- as.POSIXct("2015-10-19 10:15")
+
+```
+function() {
+   emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2015-03-27")),
+   stringsAsFactors = FALSE
+   )
+   emp.data$start_date <- as.character(emp.data$start_date)
+
+   return (emp.data)
+}
+```
+2. Make SQL to run above R script
+
+```
+   SELECT * 
+   FROM 
+   table(asEval( 
+   NULL, 
+   'SELECT 1 as emp_id, CAST(''A'' AS VARCHAR2(40)) emp_name, 
+           1.0 as salaray,  CAST(''A'' AS VARCHAR2(40)) start_date
+    FROM dual', 
+   'R_date'))
+```
+
+3. Results
+
+| EMP_ID |	EMP_NAME |	SALARAY |	START_DATE |
+|--------|-----------|----------|--------------|
+| 1      |	Rick   	 | 623.3	| 2012-01-01   |
+| 2	     |  Dan	     | 515.2	| 2013-09-23   |
+| 3	     |  Michelle |	611	    | 2014-11-15   |
+| 4	     |  Ryan     |	729	    | 2014-05-11   |
+| 5	     |  Gary	 | 843.25	| 2015-03-27   |
+
+### asTableEval and Picture Handling
+
+1. R Script
+
+Save below R codes as R_kospi.
+
+```
+## KOSPI, NewType
+# RSCRIPT.STYLE_TYPE != Normal, Input Data -> data, Arguments -> args are fixed.
+library(xts)
+library(quantmod)
+library(RCurl)
+library(logr)
+library(xts)
+library(quantmod)
+library(RCurl)
+
+sma1 = args$SMA1
+sma2 = args$SMA2
+
+data2 <- data.frame(data$open,data$high, data$low, data$close, data$volume, data$adjusted, row.names=data$row.names)
+s1 <- as.xts(data2)
+png(tf1 <- tempfile(fileext = ".png"), width=1920, height=1080)
+taS <- sprintf("addMACD();addBBands();addSMA(%d);addSMA(%d,col='blue')", sma1[[1]],sma2[[1]])
+chartSeries(s1['2016-03-10::'], up.col='red',dn.col='blue',theme='white',name="Samsung",TA=taS)
+dev.off()
+
+rm(data)
+rm(data2)
+df <- data.frame(a=tf1,stringsAsFactors=FALSE)
+lraw.lst <- vector("list", 1)
+lraw.lst[[1L]] <- readBin(tf1, "raw", file.info(tf1)[1, "size"])
+df$blob <- lraw.lst
+df
+```
+2. SQL
+
+```
+SELECT * 
+      FROM 
+        table(asTableEval( 
+          cursor(SELECT * FROM KSPI WHERE ... ), 
+          cursor(SELECT 10 AS SMA1, 30 AS SMA2 FROM DUAL),
+          'SELECT CAST(''A'' AS VARCHAR2(40)) PATH, 
+                  TO_BLOB(NULL) img 
+           FROM dual', 
+          'R_Kospi'))
+```
+
+3. Results
+
+<img src="../images/kospi.jpg">
