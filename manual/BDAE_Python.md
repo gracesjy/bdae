@@ -59,3 +59,104 @@ cursor(SELECT 1.0 as param1, 'AAAAAA' as param2 from dual),
 |motor type|	1|	+Infinity|
 |2	|3.2|  |
 |RF |	|	4.5|
+
+### ML
+1. Like AutoML, ..
+
+```
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.ensemble import RandomForestRegressor, VotingRegressor
+from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+import plotly.graph_objects as go
+
+def train(df, df_args):
+
+    # 2. 피처 및 타겟 선택
+    print(df.columns)
+    features = df_args['FEATURES'][0].split(',')
+    
+    print(type(features))
+    target = df_args['TARGET'][0]
+
+    print(df.columns)
+    X = df[features]
+    y = df[target]
+    
+    # 3. 데이터 분할
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # 4. 모델 및 하이퍼파라미터 설정
+    models = {
+        'RandomForest': (RandomForestRegressor(), {
+            'model__n_estimators': [100, 200],
+            'model__max_depth': [None, 10]
+        }),
+        'XGBoost': (XGBRegressor(), {
+            'model__n_estimators': [100, 200],
+            'model__max_depth': [3, 6],
+            'model__learning_rate': [0.1, 0.3]
+        }),
+        'LightGBM': (LGBMRegressor(), {
+            'model__n_estimators': [100, 200],
+            'model__max_depth': [3, 6],
+            'model__learning_rate': [0.1, 0.3]
+        })
+    }
+    
+    results_df = pd.DataFrame()
+    best_models = {}
+    
+    # 5. 모델별 하이퍼파라미터 튜닝 및 평가
+    for name, (regressor, params) in models.items():
+        pipe = Pipeline([
+            ('scaler', StandardScaler()),
+            ('model', regressor)
+        ])
+        grid = GridSearchCV(pipe, params, cv=3, scoring='neg_root_mean_squared_error', n_jobs=1)
+        grid.fit(X_train, y_train)
+        best_model = grid.best_estimator_
+        best_models[name] = best_model
+    
+        y_pred = best_model.predict(X_test)
+        rmse = np.sqrt(mean_squared_error(y_test, y_pred))  # squared=False 제거
+        r2 = r2_score(y_test, y_pred)
+    
+        results_df[name + '_RMSE'] = [rmse]
+        results_df[name + '_R2'] = [r2]
+    
+    # 6. 앙상블 모델 생성 및 평가
+    ensemble = VotingRegressor(estimators=[(name, model) for name, model in best_models.items()])
+    ensemble.fit(X_train, y_train)
+    y_pred_ensemble = ensemble.predict(X_test)
+    rmse_ensemble = np.sqrt(mean_squared_error(y_test, y_pred_ensemble))
+    r2_ensemble = r2_score(y_test, y_pred_ensemble)
+    
+    results_df['Ensemble_RMSE'] = [rmse_ensemble]
+    results_df['Ensemble_R2'] = [r2_ensemble]
+    
+    return results_df
+```
+
+2. SQL
+
+```
+SELECT * 
+      FROM table(apTableEval(
+         	cursor(SELECT LONGITUDE,LATITUDE,POPULATION,HOUSEHOLDS,MEDIAN_HOUSE_VALUE from CAL_HOUSING),
+         	cursor(SELECT 'LONGITUDE,LATITUDE,POPULATION,HOUSEHOLDS' FEATURES, 'MEDIAN_HOUSE_VALUE' TARGET FROM DUAL),
+            'SELECT 1.0 RandomForest_RMSE, 1.0 RandomForest_R2, 1.0 XGBoost_RMSE, 1.0 XGBoost_R2, 1.0 LightGBM_RMSE, 1.0 LightGBM_R2, 1.0 Ensemble_RMSE, 1.0 Ensemble_R2 
+             FROM DUAL',
+           'Ensemble:train'))
+```
+
+3. Results
+
+|RANDOMFOREST_RMSE|	RANDOMFOREST_R2|	XGBOOST_RMSE|	XGBOOST_R2	|LIGHTGBM_RMSE|	LIGHTGBM_R2	| ENSEMBLE_RMSE	|ENSEMBLE_R2|
+|-|-|-|-|-|-|-|-|
+|52240.6618085929	|0.794907175817684|	57931.1000813363|	0.747793267043923|	57671.0779768579	|0.750052231569059	|53545.2610316801	|0.784535758252917|
