@@ -1,20 +1,51 @@
 ## BDAE R Basic
-분석가는 R 개발 시에 R Studio 나 Jupyter Notebook 을 사용하여 개발을 한다. 물론 다른 툴도 있을 것이다.<br>
-개발 시에 Interactive 하게 개발을 하기 때문에 기본적으로 그대로 복사해서 BDAE Web 을 통해서 이름을 정해서 저장하면 된다. <br>
+Analysts typically use R Studio or Jupyter Notebook for R development. Of Course, Other tools are available.<br>
+Since development is interactive, you can simply copy and paste the data into BDAE Web, name it, and save it. <br>
 
-BDAE 의 R 을 위한 테이블 함수는 4가지가 존재한다.
+There are four table functions for R in BDAE.
 1. asEval (SQL_args, SQL_output, R_module_name)
 2. asRowEval (SQL_input, SQL_args, SQL_output, No_Of_Rows, R_module_name)
 3. asTableEval (SQL_input, SQL_args, SQL_output, R_module_name)
 4. asGroupEval (SQL_input, SQL_args, SQL_output, 'col1,col2,col3..', R_module_name)
 
-***asEval()*** 을 제외하면 모두 분석하려는 ***SQL_input*** 이 존재한다. 데이터는 Oracle Database 에 존재하기 때문에 SQL Query 형태의 ***SQL_input*** 을 기술하며 이는 독립적으로도 조회가 가능한 형태의 SQL 문이어야 한다.<br>
-***SQL_args*** 은 하이퍼 파라미터들이나, 재활용 가능한 함수들의 argument 들, 또는 Reference Data 그 자체일 수 있다.  단순 파라미터들은 SELECT .. FROM dual 을 사용하면 되며 Reference Data 의 경우 해당 Query 를 넣으면 된다.<br>
-***SQL_output*** 은 SELECT .. FROM dual 이나, 테이블 명, View 명을 바로 적으면 되는데 이렇게 출력을 넣는 이유는 Oracle Database 내부에서 SQL 실행 방식의 절차 때문이니 어쩔 수가 없다. 다만, 이 형태와 R data.frame 의 리턴 형태가 같아야 한다. 이 부분은 유틸리티를 통해서 Generation 될 수 있다. <br>
-***R_module_name*** 은 분석가의 R 스크립트의 저장할 때의 이름이며 이는 유일한 이름이어야 한다. <br>
-***asRowEval()*** 은 ***정해진 Rows 수*** 마다 반복적으로 ***R_module_name*** 을 호출하여 그 결과를 모두 전달하겠다는 의미이다. No_Of_Rows 는 정수형 숫자가 된다.<br>
-***asGroupEval()*** 에서 ***col1,col2,...*** 부분은 Group By 에 해당되는 것으로 ***SQL_input*** 에서 Group By 를 할 필요가 없다는 의미이다.  즉, 자동으로 Oracle Database 가 이에 반응하여 데이터를 Group By 한 후에 BDAE 에게 전달하고, BDAE 는 그 부분마다 ***R_module_name*** 을 호출한다.<br>
-***asTableEval()*** 은 가장 많이 사용되고, 병렬 처리를 할 필요가 있을 때에는 ***asGroupEval()*** 을 사용하면 된다.  그때 ***R_module_name*** 은 재활용 될 수 있는 것이다.
+Except for ***asEval()***, there is a ***SQL_input*** to be analyzed. Since the data exists in an Oracle database, ***SQL_input*** is described in the form of a SQL Query, and this must be a SQL statement that can be queried independently.<br>
 
+***SQL_args*** can be hyperparameters, arguments of reusable functions, or the Reference Data itself. For simple parameters, use SELECT .. FROM dual. For Reference Data, enter the corresponding Query.<br>
+***SQL_output*** can be entered as SELECT .. FROM dual, or directly as the table name or view name, but the reason for including the output like this is due to the procedure of how SQL is executed within Oracle Database, so there is no other way. However, this format and the return format of the R data.frame must be the same. This part can be generated through a utility. <br>
+***R_module_name*** is the name the analyst saves his R script as, and must be a unique name. <br>
+***asRowEval()*** means to repeatedly call ***R_module_name*** every ***a certain number of rows*** and pass back all the results. No_Of_Rows must be an integer.<br>
+***asGroupEval()*** The ***col1,col2,...*** parts correspond to Group By, which means that there is no need to Group By in ***SQL_input***. In other words, Oracle Database automatically reacts to this, Group Bys the data, and then passes it to BDAE, and BDAE calls ***R_module_name*** for each part.<br>
+***asTableEval()*** is the most commonly used, and when parallel processing is needed, ***asGroupEval()*** can be used. In that case, ***R_module_name*** can be reused.
 
+## BDAE R Example
+### Infinity and NaN
+1. Save below R code as R_infinity (As you want.)
+```
+X <- c(1,2,3,NA,5)
+Y <- c(1.1,-1.0/0,1.0/0,4.0,5.34)
+
+df <- data.frame(X,Y)
+df
+```
+2. Make SQL to run above R script
+```
+SELECT A, case when B=-binary_double_infinity then '-Infinity' 
+               when B=binary_double_infinity then '+Infinity'
+               else TO_CHAR(B) END AS B FROM (
+ SELECT *
+   FROM
+   table(asEval(
+   NULL,
+   'SELECT 1 as A, 1.0 as B FROM dual',
+   'R_infinity'))
+)
+```
+3. After run above SQL, results are as followings.
+|A	|B        |
+|---|---------|
+|1	|1.1      |
+|2	|-Infinity|
+|3	|+Infinity|
+|4  |         |
+|5	|5.34     |
 
