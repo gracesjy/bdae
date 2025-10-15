@@ -40,7 +40,8 @@ SELECT A, case when B=-binary_double_infinity then '-Infinity'
    'R_infinity'))
 )
 ```
-3. After run above SQL, results are as followings.
+3. After run above SQL, results are as followings.<br>
+
 |A	|B        |
 |---|---------|
 |1	|1.1      |
