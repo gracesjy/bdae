@@ -8,7 +8,7 @@ BDAE 의 R 을 위한 테이블 함수는 4가지가 존재한다.
 3. asTableEval (SQL_input, SQL_args, SQL_output, R_module_name)
 4. asGroupEval (SQL_input, SQL_args, SQL_output, 'col1,col2,col3..', R_module_name)
 
-***asEval()***을 제외하면 모두 분석하려는 ***SQL_input*** 이 존재한다. 데이터는 Oracle Database 에 존재하기 때문에 SQL Query 형태의 SQL_input 을 기술하며 이는 독립적으로도 조회가 가능한 형태의 SQL 문이어야 한다.<br>
+***asEval()*** 을 제외하면 모두 분석하려는 ***SQL_input*** 이 존재한다. 데이터는 Oracle Database 에 존재하기 때문에 SQL Query 형태의 SQL_input 을 기술하며 이는 독립적으로도 조회가 가능한 형태의 SQL 문이어야 한다.<br>
 ***SQL_output*** 은 하이퍼 파라미터들이나, 재활용 가능한 함수들의 argument 들, 또는 Reference Data 그 자체일 수 있다.  단순 파라미터들은 SELECT .. FROM dual 을 사용하면 되며 Reference Data 의 경우 해당 Query 를 넣으면 된다.<br>
 ***SQL_output*** 은 SELECT .. FROM dual 이나, 테이블 명, View 명을 바로 적으면 되는데 이렇게 출력을 넣는 이유는 Oracle Database 의 SQL 실행 시의 방식 때문이다. <br>
 ***R_module_name*** 은 분석가의 R 스크립트의 저장할 때의 이름이며 이는 유일한 이름이어야 한다. <br>
